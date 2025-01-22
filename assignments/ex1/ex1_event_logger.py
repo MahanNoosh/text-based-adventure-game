@@ -40,7 +40,6 @@ class Event:
     - next_command: String command which leads this event to the next event, None if this is the last game event
     - next: Event object representing the next event in the game, or None if this is the last game event
     - prev: Event object representing the previous event in the game, None if this is the first game event
-    - hi
     """
 
     # NOTES:
