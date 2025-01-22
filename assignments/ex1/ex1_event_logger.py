@@ -50,7 +50,11 @@ class Event:
     # set of attributes, you can do that separately in the project1 folder. This class is part of
     # Exercise 1 and will be auto-graded.
 
-    # TODO: Add attributes below based on the provided descriptions above. Use the specified datatypes.
+    id_num: int
+    description: str
+    next_command: Optional[str] = None
+    next: Optional[Event] = None
+    prev: Optional[Event] = None
 
 
 class EventList:
@@ -62,6 +66,8 @@ class EventList:
 
     Representation Invariants:
         - # TODO add any appropriate representation invariants, if needed
+
+
     """
     first: Optional[Event]
     last: Optional[Event]
@@ -85,6 +91,7 @@ class EventList:
         """Return whether this event list is empty."""
 
         # TODO: Your code below
+        return self.first is None
 
     def add_event(self, event: Event, command: Optional[str] = None) -> None:
         """Add the given new event to the end of this event list.
@@ -92,8 +99,17 @@ class EventList:
         event in the game.
         """
         # Hint: You should update the previous node's <next_command> as needed
-
         # TODO: Your code below
+        new = event
+        new.prev = self.last
+        if self.is_empty():
+            self.first = new
+        else:
+            self.last.next = new
+        self.last = new
+
+
+
 
     def remove_last_event(self) -> None:
         """Remove the last event from this event list.
