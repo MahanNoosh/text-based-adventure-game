@@ -61,10 +61,11 @@ class EventList:
     A linked list of game events.
 
     Instance Attributes:
-        - # TODO add descriptions of instance attributes here
+        - first: the first Event to happen
+        - last: the last Event to happen
 
     Representation Invariants:
-        - # TODO add any appropriate representation invariants, if needed
+        - isinstance(first, None) == isinstance(last, None)
 
 
     """
