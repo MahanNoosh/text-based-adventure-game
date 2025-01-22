@@ -65,7 +65,7 @@ class EventList:
         - last: the last Event to happen
 
     Representation Invariants:
-        - isinstance(first, None) == isinstance(last, None)
+        - isinstance(first, type(last))
 
 
     """
