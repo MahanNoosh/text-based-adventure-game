@@ -96,7 +96,9 @@ class SimpleAdventureGame:
         If no ID is provided, return the Location object associated with the current location.
         """
 
-        # TODO: Complete this method as specified. Do not modify any of this function's specifications.
+        if loc_id is None:
+            return self._locations[current_location_id]
+        return self._locations[loc_id]
 
 
 class AdventureGameSimulation:
@@ -120,9 +122,12 @@ class AdventureGameSimulation:
 
         # TODO: Add first event (initial location, no previous command)
         # Hint: self._game.get_location() gives you back the current location
-
+        loc = self._game.get_location()
+        e = Event(loc.id_num, loc.available_commands, loc.description)
+        self._events.add_event(e)
         # TODO: Generate the remaining events based on the commands and initial location
         # Hint: Call self.generate_events with the appropriate arguments
+        self.generate_events(commands, loc)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
         """Generate all events in this simulation.
@@ -136,6 +141,11 @@ class AdventureGameSimulation:
         #  it to self._events.
         # Hint: current_location.available_commands[command] will return the next location ID
         # which executing <command> while in <current_location_id> leads to
+        for command in commands:
+            loc = current_location.available_commands[command]
+            e = Event(loc.id_num, loc.description, loc.available_commands)
+            self._events.add_event(e, command)
+            current_location = loc
 
     def get_id_log(self) -> list[int]:
         """

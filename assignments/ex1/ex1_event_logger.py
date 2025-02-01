@@ -66,8 +66,6 @@ class EventList:
 
     Representation Invariants:
         - isinstance(first, type(last))
-
-
     """
     first: Optional[Event]
     last: Optional[Event]
@@ -85,12 +83,9 @@ class EventList:
             print(f"Location: {curr.id_num}, Command: {curr.next_command}")
             curr = curr.next
 
-    # TODO: Complete the methods below, based on the given descriptions. Do NOT change any of their specification.
-    #  That is, the function headers (parameters, return type, etc.) must NOT be changed.
     def is_empty(self) -> bool:
         """Return whether this event list is empty."""
 
-        # TODO: Your code below
         return self.first is None
 
     def add_event(self, event: Event, command: Optional[str] = None) -> None:
@@ -98,18 +93,14 @@ class EventList:
         The given command is the command which was used to reach this new event, or None if this is the first
         event in the game.
         """
-        # Hint: You should update the previous node's <next_command> as needed
-        # TODO: Your code below
         new = event
         new.prev = self.last
         if self.is_empty():
             self.first = new
         else:
+            self.last.next_command = command
             self.last.next = new
         self.last = new
-
-
-
 
     def remove_last_event(self) -> None:
         """Remove the last event from this event list.
