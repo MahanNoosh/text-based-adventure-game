@@ -106,16 +106,24 @@ class EventList:
         """Remove the last event from this event list.
         If the list is empty, do nothing."""
 
-        # Hint: The <next_command> and <next> attributes for the new last event should be updated as needed
-
-        # TODO: Your code below
+        if not self.is_empty():
+            if self.last == self.first:
+                self.last = None
+                self.first = None
+            else:
+                self.last = self.last.prev
+                self.last.next = None
+                self.last.next_command = None
 
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""
 
-        # TODO: Your code below
-
-    # Note: You may add other methods to this class as needed but DO NOT CHANGE THE SPECIFICATION OF ANY OF THE ABOVE
+        id_list = []
+        curr = self.first
+        while curr:
+            id_list.append(curr.id_num)
+            curr = curr.next
+        return id_list
 
 
 if __name__ == "__main__":
