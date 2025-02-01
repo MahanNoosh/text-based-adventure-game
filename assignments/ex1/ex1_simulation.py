@@ -119,14 +119,9 @@ class AdventureGameSimulation:
         """
         self._events = EventList()
         self._game = SimpleAdventureGame(game_data_file, initial_location_id)
-
-        # TODO: Add first event (initial location, no previous command)
-        # Hint: self._game.get_location() gives you back the current location
         loc = self._game.get_location()
         e = Event(loc.id_num, loc.available_commands, loc.description)
         self._events.add_event(e)
-        # TODO: Generate the remaining events based on the commands and initial location
-        # Hint: Call self.generate_events with the appropriate arguments
         self.generate_events(commands, loc)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
@@ -136,11 +131,6 @@ class AdventureGameSimulation:
         - len(commands) > 0
         - all commands in the given list are valid commands at each associated location in the game
         """
-
-        # TODO: Complete this method as specified. For each command, generate the event and add
-        #  it to self._events.
-        # Hint: current_location.available_commands[command] will return the next location ID
-        # which executing <command> while in <current_location_id> leads to
         for command in commands:
             loc = current_location.available_commands[command]
             e = Event(loc.id_num, loc.description, loc.available_commands)
