@@ -34,16 +34,16 @@ class AdventureGame:
     """A text adventure game class storing all location, item and map data.
 
     Instance Attributes:
-        - # TODO add descriptions of public instance attributes as needed
-
+        - _locations: a mapping from location id to Location object. This represents all the locations in the game.
+        - _items: a list of Item objects, representing all items in the game.
+        - current_location_id: the id of location we are currently at.
+        - ongoing: saves if the game is running.
+        #TODO
     Representation Invariants:
-        - # TODO add any appropriate representation invariants as needed
+        - len(_locations) > 0
+        - len(_items) > 0
+        #TODO
     """
-
-    # Private Instance Attributes (do NOT remove these two attributes):
-    #   - _locations: a mapping from location id to Location object.
-    #                       This represents all the locations in the game.
-    #   - _items: a list of Item objects, representing all items in the game.
 
     _locations: dict[int, Location]
     _items: list[Item]
@@ -90,8 +90,10 @@ class AdventureGame:
             locations[loc_data['id']] = location_obj
 
         items = []
-        # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
-        # YOUR CODE BELOW
+        for item_data in data['items']:  # Go through each element associated with the 'items' key in the file
+            item_obj = Item(item_data['name'], item_data['description'], item_data['start_position'],
+                            item_data['target_position'], item_data['target_points'])
+            items.append(item_obj)
 
         return locations, items
 
@@ -100,8 +102,9 @@ class AdventureGame:
         If no ID is provided, return the Location object associated with the current location.
         """
 
-        # TODO: Complete this method as specified
-        # YOUR CODE BELOW
+        if loc_id is None:
+            return self._locations[current_location_id]
+        return self._locations[loc_id]
 
 
 if __name__ == "__main__":
@@ -127,13 +130,17 @@ if __name__ == "__main__":
 
         location = game.get_location()
 
-        # TODO: Add new Event to game log to represent current game location
-        #  Note that the <choice> variable should be the command which led to this event
-        # YOUR CODE HERE
+        e = Event(location.id_num, location.long_description)
+        game_log.add_event(e, choice)
 
-        # TODO: Depending on whether or not it's been visited before,
-        #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        # YOUR CODE HERE
+        location_description = ""
+        if location.visited:
+            location_description = location.brief_description
+        else:
+            location_description = location.long_description
+
+        print(location_description)
+
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, undo, log, quit")
@@ -156,7 +163,6 @@ if __name__ == "__main__":
             if choice == "log":
                 game_log.display_events()
             # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
-
         else:
             # Handle non-menu actions
             result = location.available_commands[choice]

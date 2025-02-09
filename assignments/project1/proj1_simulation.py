@@ -45,12 +45,10 @@ class AdventureGameSimulation:
         """
         self._events = EventList()
         self._game = AdventureGame(game_data_file, initial_location_id)
-
-        # TODO: Add first event (initial location, no previous command)
-        # Hint: self._game.get_location() gives you back the current location
-
-        # TODO: Generate the remaining events based on the commands and initial location
-        # Hint: Call self.generate_events with the appropriate arguments
+        loc = self._game.get_location()
+        e = Event(loc.id_num, loc.description)
+        self._events.add_event(e)
+        self.generate_events(commands, loc)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
         """Generate all events in this simulation.
@@ -60,10 +58,11 @@ class AdventureGameSimulation:
         - all commands in the given list are valid commands at each associated location in the game
         """
 
-        # TODO: Complete this method as specified. For each command, generate the event and add
-        #  it to self._events.
-        # Hint: current_location.available_commands[command] will return the next location ID
-        # which executing <command> while in <current_location_id> leads to
+        for command in commands:
+            loc = current_location.available_commands[command]
+            e = Event(loc.id_num, loc.location_description)
+            self._events.add_event(e, command)
+            current_location = loc
 
     def get_id_log(self) -> list[int]:
         """
@@ -91,7 +90,7 @@ class AdventureGameSimulation:
         current_event = self._events.first  # Start from the first event in the list
 
         while current_event:
-            print(current_event.description)
+            print(current_event.location_description)
             if current_event is not self._events.last:
                 print("You choose:", current_event.next_command)
 
