@@ -59,7 +59,7 @@ class AdventureGameSimulation:
         """
 
         for command in commands:
-            loc = current_location.available_commands[command]
+            loc = self._game.get_location(current_location.available_commands[command])
             e = Event(loc.id_num, loc.location_description)
             self._events.add_event(e, command)
             current_location = loc

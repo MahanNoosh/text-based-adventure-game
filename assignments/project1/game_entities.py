@@ -34,7 +34,7 @@ class Location:
         - visited: a boolean indicating whether the player has previously visited this location.
 
     Representation Invariants:
-        -self.id_num >= 0
+        -self.id_num >= 0 #TODO
     """
 
     # This is just a suggested starter class for Location.
@@ -71,7 +71,7 @@ class Item:
     Representation Invariants:
         - name != ''
         - description != ''
-        - start_position >=0
+        - start_position >=0 #TODO
         - target_position >=0
         - target_points >=0
     """

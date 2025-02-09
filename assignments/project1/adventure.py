@@ -121,6 +121,7 @@ if __name__ == "__main__":
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
     game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
     menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
+    score = 0
     choice = None
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
@@ -140,7 +141,6 @@ if __name__ == "__main__":
             location_description = location.long_description
 
         print(location_description)
-
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, undo, log, quit")
@@ -163,6 +163,13 @@ if __name__ == "__main__":
             if choice == "log":
                 game_log.display_events()
             # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
+            elif choice == "look":
+                print(location.long_description)
+            elif choice == "score":
+                print(score)
+            elif choice == "quit":
+                game.ongoing = False
+
         else:
             # Handle non-menu actions
             result = location.available_commands[choice]
