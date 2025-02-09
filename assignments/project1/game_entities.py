@@ -26,10 +26,15 @@ class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - # TODO Describe each instance attribute here
+        - id_num: a unique integer identifier for this location.
+        - brief_description: a string short description of the location.
+        - long_description: a long description of the location.
+        - available_commands: A mapping of commands (e.g., "go north") to descriptions or destinations.
+        - items: a list of items present in this location.
+        - visited: a boolean indicating whether the player has previously visited this location.
 
     Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        -self.id_num >= 0
     """
 
     # This is just a suggested starter class for Location.
@@ -42,7 +47,6 @@ class Location:
                  visited=False) -> None:
         """Initialize a new location.
 
-        # TODO Add more details here about the initialization if needed
         """
 
         self.id_num = location_id
@@ -58,10 +62,18 @@ class Item:
     """An item in our text adventure game world.
 
     Instance Attributes:
-        - # TODO Describe each instance attribute here
+        - name: string representing the name of the item.
+        - description: a string describing the item.
+        - start_position: an integer representing the starting location ID of the item.
+        - target_position:an integer represnting the target location ID of the item( where it will be delivered to).
+        - target_points: an integer represinting how many points a player will be awarded when item reaches target_position.
 
     Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        - name != ''
+        - description != ''
+        - start_position >=0
+        - target_position >=0
+        - target_points >=0
     """
 
     # NOTES:
@@ -73,6 +85,7 @@ class Item:
     # All item objects in your game MUST be represented as an instance of this class.
 
     name: str
+    description: str
     start_position: int
     target_position: int
     target_points: int
