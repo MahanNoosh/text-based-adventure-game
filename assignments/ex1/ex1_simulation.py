@@ -97,7 +97,7 @@ class SimpleAdventureGame:
         """
 
         if loc_id is None:
-            return self._locations[current_location_id]
+            return self._locations[self.current_location_id]
         return self._locations[loc_id]
 
 
@@ -133,7 +133,7 @@ class AdventureGameSimulation:
         """
         for command in commands:
             loc = self._game.get_location(current_location.available_commands[command])
-            e = Event(loc.id_num, loc.location_description)
+            e = Event(loc.id_num, loc.description)
             self._events.add_event(e, command)
             current_location = loc
 
@@ -163,7 +163,7 @@ class AdventureGameSimulation:
         current_event = self._events.first  # Start from the first event in the list
 
         while current_event:
-            print(current_event.location_description)
+            print(current_event.description)
             if current_event is not self._events.last:
                 print("You choose:", current_event.next_command)
 

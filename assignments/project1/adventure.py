@@ -103,7 +103,7 @@ class AdventureGame:
         """
 
         if loc_id is None:
-            return self._locations[current_location_id]
+            return self._locations[self.current_location_id]
         return self._locations[loc_id]
 
 
@@ -121,6 +121,7 @@ if __name__ == "__main__":
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
     game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
     menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
+    inventory = []
     score = 0
     choice = None
 
@@ -131,8 +132,9 @@ if __name__ == "__main__":
 
         location = game.get_location()
 
-        e = Event(location.id_num, location.long_description)
-        game_log.add_event(e, choice)
+        if choice not in menu:
+            e = Event(location.id_num, location.long_description)
+            game_log.add_event(e, choice)
 
         location_description = ""
         if location.visited:
@@ -153,7 +155,6 @@ if __name__ == "__main__":
         while choice not in location.available_commands and choice not in menu:
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
-
         print("========")
         print("You decided to:", choice)
 
@@ -169,11 +170,20 @@ if __name__ == "__main__":
                 print(score)
             elif choice == "quit":
                 game.ongoing = False
+            elif choice == "inventory":
+                print(inventory)
+            elif choice == "undo":
+                if game_log.last.prev.next_command[:6] == "pickup":
+                    inventory.pop()
+                game_log.remove_last_event()
+                game.current_location_id = game_log.last.id_num
 
         else:
             # Handle non-menu actions
             result = location.available_commands[choice]
             game.current_location_id = result
-
+            if choice[:6] == "pickup":
+                if choice[7:] not in inventory:
+                    inventory.append(choice[7:])
             # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
             # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
