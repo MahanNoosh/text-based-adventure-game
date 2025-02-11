@@ -37,7 +37,7 @@ class AdventureGame:
 
     Instance Attributes:
         - _locations: a mapping from location id to Location object. This represents all the locations in the game.
-        - _items: a dictionary of Item objects, mapping item name to items in the game.
+        - _items: a list of Item objects, representing all items in the game.
         - current_location_id: the id of location we are currently at.
         - ongoing: saves if the game is running.
         #TODO
@@ -48,7 +48,7 @@ class AdventureGame:
     """
 
     _locations: dict[int, Location]
-    _items: dict[str, Item]
+    _items: list[Item]
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
 
@@ -77,7 +77,7 @@ class AdventureGame:
         self.ongoing = True  # whether the game is ongoing
 
     @staticmethod
-    def _load_game_data(filename: str) -> tuple[dict[int, Location], list[str, Item]]:
+    def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
         """Load locations and items from a JSON file with the given filename and
         return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
         and (2) a list of all Item objects."""
@@ -91,11 +91,11 @@ class AdventureGame:
                                     loc_data['available_commands'], loc_data['items'])
             locations[loc_data['id']] = location_obj
 
-        items = {}
+        items = []
         for item_data in data['items']:  # Go through each element associated with the 'items' key in the file
             item_obj = Item(item_data['name'], item_data['description'], item_data['start_position'],
                             item_data['target_position'], item_data['target_points'])
-            items[item_data['name']] = item_obj
+            items.append(item_obj)
 
         return locations, items
 
@@ -107,13 +107,6 @@ class AdventureGame:
         if loc_id is None:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
-
-    def get_item(self, item_name) -> Item:
-        """Return Item object associated with the provided Item name.
-                """
-
-        if item_name is not None:
-            return self._items[item_name]
 
 
 if __name__ == "__main__":
@@ -181,9 +174,7 @@ if __name__ == "__main__":
             elif choice == "quit":
                 game.ongoing = False
             elif choice == "inventory":
-                for item in inventory:
-                    inventory_item = game.get_item(item)
-                    print(f"{inventory_item.name}: {inventory_item.description}")
+                print(inventory)
             elif choice == "undo":
                 if game_log.last.prev.next_command[:6] == "pickup":
                     inventory.pop()
@@ -199,42 +190,42 @@ if __name__ == "__main__":
                     inventory.append(location.items[0])
             elif choice == "submit project":
                 if "USB drive" in inventory and "laptop charger" in inventory and "lucky mug" in inventory:
-                    print("nice you submited it 2m before the deadline")  #TODO
+                    print("Nice, you submitted it with two minutes to spare!")
                 else:
-                    print("you dont have requiared items to submit your project") #TODO
+                    print("You don’t have the required items to submit your project.")
             elif choice == "call reciption":
                 if "cellphone" in inventory:
                     number = input("dial phone number: ").replace("-", "")
                     if number == "4169784500":
-                       print("they said you left it on washroom cabinet. OH! "
-                             "you use it when you brush your teeth to save water! that makes sense.") #TODO
+                       print("They said you left it in the bathroom cabinet. OH! "
+                             "You use it while brushing your teeth to save water. That makes sense!")
                        inventory.append(location.items[0])
                     else:
-                        print("wait, who is this? sorry wrong number.") #TODO
+                        print("Wait, who is this? Sorry, wrong number.")
                 else:
-                    print("You don't have your phone on you, how can you call them?") #TODO
+                    print("You don’t have your phone on you, how can you call them?")
             elif choice == "unlock the computer":
-                password = input("Enter the password: ") #TODO
+                password = input("Enter the password: ")
                 if password == "62759709":
                     inventory.append(location.items[0])
-                    print("Nice! thanks god you fount the password!") #TODO
+                    print("Nice! Thank God you found the password!")
                 else:
-                    print("Oh no, password is wrong!") #TODO
+                    print("Oh no, the password is wrong!")
             elif choice == "enter robarts from backdoor":
-                print("Backdoor is locked. You knocked on the door but no one opened it. Try entering from front door on st. George") #TODO
+                print("The backdoor is locked. You knocked, but no one answered. Try entering through the front door on St. George.")
             elif choice == "face social anxiety and enter":
-                print("you don't have the confidence to get in the room! So, let's bet if you solve this puzzle you should knock and go in because why not this is a hard one to do and you did it!") #TODO
+                print("You don't have the confidence to get in the room! So, let’s make a bet: if you solve this puzzle, you should knock and go in. After all, it’s a tough one, and you did it!")
                 print("You have a fox, a goose, and a bag of beans. You need to cross a river with them, but the boat can only carry you and one item at a time.\n"
-                      "If left together, the fox will eat the goose, and the goose will eat the beans. How do you get them all across safely?")
+                      "If left alone together, the fox will eat the goose, and the goose will eat the beans. How can you get them all across safely?")
                 answer = input("Enter what you take to the other side in order and space seperated (fox, goose, beans, alone): ")
-                if answer in ["goose alone fox goose beans alone goose", "goose alone beans goose fox alone goose"]:
-                    print("Nice! see you should be more confident.") #TODO
+                if answer == "goose alone fox goose beans alone goose" or answer == "goose alone beans goose fox alone goose":
+                    print("Nice! See? You should be more confident.")
                     game.current_location_id = 24
                 else:
-                    print("I don't think this works. Did you enter it correctly?") #TODO
+                    print("I don’t think this is working. Did you enter it correctly?")
             elif choice == "play with them":
-                print("Oh nice you really do that?! seems like you don't have social anxiety anymore!")
-                print("This is a copy of blackjack. You get random numbers if you hit. You win if you hit 21 or your friend get less than you. Anyone, who passes 21 will lose.")
+                print("Oh, nice! You really did that?! Looks like you don’t have social anxiety anymore!")
+                print("This is a variation of Blackjack. You receive random numbers when you hit. You win if you reach 21 or if your friend has a lower total than you. Anyone who exceeds 21 loses.")
                 playing = True
                 while playing:
                     computer_numbers = [int(1 + (random.random()) * 9)]
@@ -274,7 +265,7 @@ if __name__ == "__main__":
                         elif again == "n":
                             playing = False
                             break
-                print("your friend said you are a good friend! they said they know a secret door in this room and want you to go in for a surprise!")
+                print("Your friend said you’re a good friend! They mentioned knowing a secret door in this room and want you to go in for a surprise!")
                 game.current_location_id = 30
             elif choice == "get 10 extra moves":
                 moves += 10
