@@ -19,7 +19,9 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from __future__ import annotations
 import json
+import random
 from typing import Optional
+
 
 from game_entities import Location, Item
 from proj1_event_logger import Event, EventList
@@ -119,10 +121,11 @@ if __name__ == "__main__":
     # })
 
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
-    game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
+    game = AdventureGame('game_data.json', 7)  # load data, setting initial location ID to 7
     menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
     inventory = []
     score = 0
+    moves = 25
     choice = None
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
@@ -183,7 +186,102 @@ if __name__ == "__main__":
             result = location.available_commands[choice]
             game.current_location_id = result
             if choice[:6] == "pickup":
-                if choice[7:] not in inventory:
-                    inventory.append(choice[7:])
+                if location.items[0] not in inventory:
+                    inventory.append(location.items[0])
+            elif choice == "submit project":
+                if "USB drive" in inventory and "laptop charger" in inventory and "lucky mug" in inventory:
+                    print("nice you submited it 2m before the deadline")  #TODO
+                else:
+                    print("you dont have requiared items to submit your project") #TODO
+            elif choice == "call reciption":
+                if "cellphone" in inventory:
+                    number = input("dial phone number: ").replace("-", "")
+                    if number == "4169784500":
+                       print("they said you left it on washroom cabinet. OH! "
+                             "you use it when you brush your teeth to save water! that makes sense.") #TODO
+                       inventory.append(location.items[0])
+                    else:
+                        print("wait, who is this? sorry wrong number.") #TODO
+                else:
+                    print("You don't have your phone on you, how can you call them?") #TODO
+            elif choice == "unlock the computer":
+                password = input("Enter the password: ") #TODO
+                if password == "62759709":
+                    inventory.append(location.items[0])
+                    print("Nice! thanks god you fount the password!") #TODO
+                else:
+                    print("Oh no, password is wrong!") #TODO
+            elif choice == "enter robarts from backdoor":
+                print("Backdoor is locked. You knocked on the door but no one opened it. Try entering from front door on st. George") #TODO
+            elif choice == "face social anxiety and enter":
+                print("you don't have the confidence to get in the room! So, let's bet if you solve this puzzle you should knock and go in because why not this is a hard one to do and you did it!") #TODO
+                print("You have a fox, a goose, and a bag of beans. You need to cross a river with them, but the boat can only carry you and one item at a time.\n"
+                      "If left together, the fox will eat the goose, and the goose will eat the beans. How do you get them all across safely?")
+                answer = input("Enter what you take to the other side in order and space seperated (fox, goose, beans, alone): ")
+                if answer == "goose alone fox goose beans alone goose" or answer == "goose alone beans goose fox alone goose":
+                    print("Nice! see you should be more confident.") #TODO
+                    game.current_location_id = 24
+                else:
+                    print("I don't think this works. Did you enter it correctly?") #TODO
+            elif choice == "play with them":
+                print("Oh nice you really do that?! seems like you don't have social anxiety anymore!")
+                print("This is a copy of blackjack. You get random numbers if you hit. You win if you hit 21 or your friend get less than you. Anyone, who passes 21 will lose.")
+                playing = True
+                while playing:
+                    computer_numbers = [int(1 + (random.random()) * 9)]
+                    player_numbers = [int(1 + (random.random()) * 9), int(1 + (random.random()) * 9)]
+                    print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
+                    print(f"your new friend first number is {computer_numbers}")
+                    while True:
+                        action = input('if you wanna add another number say "hit" if not say "stay": ')
+                        if action == "hit":
+                            player_numbers.append(int(1 + (random.random()) * 9))
+                            print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
+                        else:
+                            computer_numbers.append(int(1 + (random.random()) * 9))
+                            while sum(computer_numbers) <= 16:
+                                computer_numbers.append(int(1 + (random.random()) * 9))
+                            if sum(computer_numbers) > 21 or sum(player_numbers) >= sum(computer_numbers):
+                                print("you won!")
+                                print(f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} ({sum(player_numbers)})")
+                                break
+                            else:
+                                print("your friend won!")
+                                print(
+                                    f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} ({sum(player_numbers)})")
+                                break
+                        if sum(player_numbers) > 21:
+                            print("your friend won")
+                            print(f"you had {player_numbers} ({sum(player_numbers)})")
+                            break
+                        elif sum(player_numbers) == 21:
+                            print("you won!")
+                            print(f"you had {player_numbers} (21)")
+                            break
+                    while True:
+                        again = input("Play again? y/n: ")
+                        if again == "y":
+                            break
+                        elif again == "n":
+                            playing = False
+                            break
+                print("your friend said you are a good friend! they said they know a secret door in this room and want you to go in for a surprise!")
+                game.current_location_id = 30
+            elif choice == "get 10 extra moves":
+                moves += 10
+            elif choice == "use back door":
+                print("You need to figure out the 4-digit code to unlock the door. The clues written behind the door are:\n"
+                "1.The code is made up of four digits.\n"
+                "2.The second digit is greater than the first\n"
+                "3.The sum of all digits is 18.\n"
+                "4.The third digit is half the second digit.\n"
+                "5.The fourth digit is one less than the third.")
+                code = input("What's the code?")
+                if code == "3843":
+                    print("door unlocked and you ran toward your college.")
+                    game.current_location_id = 1
+                else:
+                    print("Wrong code!")
+
             # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
             # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
