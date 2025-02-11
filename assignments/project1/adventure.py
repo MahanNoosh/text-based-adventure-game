@@ -37,7 +37,7 @@ class AdventureGame:
 
     Instance Attributes:
         - _locations: a mapping from location id to Location object. This represents all the locations in the game.
-        - _items: a list of Item objects, representing all items in the game.
+        - _items: a dictionary of Item objects, mapping item name to items in the game.
         - current_location_id: the id of location we are currently at.
         - ongoing: saves if the game is running.
         #TODO
@@ -48,7 +48,7 @@ class AdventureGame:
     """
 
     _locations: dict[int, Location]
-    _items: list[Item]
+    _items: dict[str, Item]
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
 
@@ -77,7 +77,7 @@ class AdventureGame:
         self.ongoing = True  # whether the game is ongoing
 
     @staticmethod
-    def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
+    def _load_game_data(filename: str) -> tuple[dict[int, Location], list[str, Item]]:
         """Load locations and items from a JSON file with the given filename and
         return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
         and (2) a list of all Item objects."""
@@ -91,11 +91,11 @@ class AdventureGame:
                                     loc_data['available_commands'], loc_data['items'])
             locations[loc_data['id']] = location_obj
 
-        items = []
+        items = {}
         for item_data in data['items']:  # Go through each element associated with the 'items' key in the file
             item_obj = Item(item_data['name'], item_data['description'], item_data['start_position'],
                             item_data['target_position'], item_data['target_points'])
-            items.append(item_obj)
+            items[item_data['name']] = item_obj
 
         return locations, items
 
@@ -107,6 +107,13 @@ class AdventureGame:
         if loc_id is None:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
+
+    def get_item(self, item_name) -> Item:
+        """Return Item object associated with the provided Item name.
+                """
+
+        if item_name is not None:
+            return self._items[item_name]
 
 
 if __name__ == "__main__":
@@ -174,7 +181,9 @@ if __name__ == "__main__":
             elif choice == "quit":
                 game.ongoing = False
             elif choice == "inventory":
-                print(inventory)
+                for item in inventory:
+                    inventory_item = game.get_item(item)
+                    print(f"{inventory_item.name}: {inventory_item.description}")
             elif choice == "undo":
                 if game_log.last.prev.next_command[:6] == "pickup":
                     inventory.pop()
@@ -218,7 +227,7 @@ if __name__ == "__main__":
                 print("You have a fox, a goose, and a bag of beans. You need to cross a river with them, but the boat can only carry you and one item at a time.\n"
                       "If left together, the fox will eat the goose, and the goose will eat the beans. How do you get them all across safely?")
                 answer = input("Enter what you take to the other side in order and space seperated (fox, goose, beans, alone): ")
-                if answer == "goose alone fox goose beans alone goose" or answer == "goose alone beans goose fox alone goose":
+                if answer in ["goose alone fox goose beans alone goose", "goose alone beans goose fox alone goose"]:
                     print("Nice! see you should be more confident.") #TODO
                     game.current_location_id = 24
                 else:
