@@ -158,7 +158,7 @@
       "id": 1,
       "name": "North hallway",
       "brief_description": "",
-      "long_description": "",
+      "long_description": "You are in North hallway, there is nothing here. You see a backdoor that might lead to Robarts Library. To the South, you can enter your room.",
       "available_commands": {
         "go south": 7,
         "knock the robarts backdoor": 1
@@ -226,8 +226,8 @@
     {
       "id": 30,
       "name": "???",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You find yourself in a Secret Room. To the North, you can go back to the study room.",
+      "long_description": "You find yourself in a Secret Room, hidden away from the usual corridors of the library and dorms. The space is dimly lit, with shelves full of dusty old books and strange artifacts. In the center of the room, perched on a small rug, sits a magical capybara. It looks up at you with intelligent eyes and gives a slight nod. \"Ah, I see you've found me,\" it says, its voice surprisingly clear and soothing. \"I have the power to grant you something that could help you on your quest... I can give you an extra 10 moves. But be careful, as time can be a fickle thing.\" The capybara looks at you expectantly, awaiting your decision. To the North, you can go back to the study room.",
       "available_commands": {
         "go north": 24,
         "get 10 extra moves": 30
@@ -237,10 +237,31 @@
   ],
   "items": [
     {
-      "name": "toonie",
-      "description": "There is a toonie on the ground. Someone must have dropped it.",
-      "start_position": 1,
-      "target_position": 4,
+      "name": "cellphone",
+      "description": "You can use your phone to make calls!",
+      "start_position": 7,
+      "target_position": 19,
+      "target_points": 5
+    },
+    {
+      "name": "USB drive",
+      "description": "he only copy of your game, because of course you forgot to back it up",
+      "start_position": 4,
+      "target_position": 7,
+      "target_points": 5
+    },
+    {
+      "name": "lucky mug",
+      "description": "This is your lucky mug!!! you can't do anything without it!!!!",
+      "start_position": 19,
+      "target_position": 7,
+      "target_points": 5
+    },
+    {
+      "name": "laptop charger",
+      "description": "your battery is 5%, you need it to charge your laptop.",
+      "start_position": 24,
+      "target_position": 7,
       "target_points": 5
     }
   ]
