@@ -37,7 +37,7 @@ class AdventureGame:
 
     Instance Attributes:
         - _locations: a mapping from location id to Location object. This represents all the locations in the game.
-        - _items: a list of Item objects, representing all items in the game.
+        - _items: a dictionary of Item objects, mapping item name to items in the game.
         - current_location_id: the id of location we are currently at.
         - ongoing: saves if the game is running.
         #TODO
@@ -48,7 +48,7 @@ class AdventureGame:
     """
 
     _locations: dict[int, Location]
-    _items: list[Item]
+    _items: dict[str, Item]
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
 
@@ -77,7 +77,7 @@ class AdventureGame:
         self.ongoing = True  # whether the game is ongoing
 
     @staticmethod
-    def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
+    def _load_game_data(filename: str) -> tuple[dict[int, Location], dict[str, Item]]:
         """Load locations and items from a JSON file with the given filename and
         return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
         and (2) a list of all Item objects."""
@@ -91,11 +91,11 @@ class AdventureGame:
                                     loc_data['available_commands'], loc_data['items'])
             locations[loc_data['id']] = location_obj
 
-        items = []
+        items = {}
         for item_data in data['items']:  # Go through each element associated with the 'items' key in the file
             item_obj = Item(item_data['name'], item_data['description'], item_data['start_position'],
                             item_data['target_position'], item_data['target_points'])
-            items.append(item_obj)
+            items[item_data['name']] = item_obj
 
         return locations, items
 
@@ -107,6 +107,13 @@ class AdventureGame:
         if loc_id is None:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
+
+    def get_item(self, item_name) -> Item:
+        """Return Item object associated with the provided Item name.
+                """
+
+        if item_name is not None:
+            return self._items[item_name]
 
 
 if __name__ == "__main__":
@@ -126,6 +133,7 @@ if __name__ == "__main__":
     inventory = []
     score = 0
     moves = 25
+    already_claimed_bonus = False
     choice = None
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
@@ -174,7 +182,9 @@ if __name__ == "__main__":
             elif choice == "quit":
                 game.ongoing = False
             elif choice == "inventory":
-                print(inventory)
+                for item in inventory:
+                    inventory_item = game.get_item(item)
+                    print(f"{inventory_item.name}: {inventory_item.description}")
             elif choice == "undo":
                 if game_log.last.prev.next_command[:6] == "pickup":
                     inventory.pop()
@@ -233,11 +243,11 @@ if __name__ == "__main__":
                     print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
                     print(f"your new friend first number is {computer_numbers}")
                     while True:
-                        action = input('if you wanna add another number say "hit" if not say "stay": ')
+                        action = input('if you wanna add another number say "hit" if not say "stand": ')
                         if action == "hit":
                             player_numbers.append(int(1 + (random.random()) * 9))
                             print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
-                        else:
+                        elif action == "stand":
                             computer_numbers.append(int(1 + (random.random()) * 9))
                             while sum(computer_numbers) <= 16:
                                 computer_numbers.append(int(1 + (random.random()) * 9))
@@ -250,11 +260,11 @@ if __name__ == "__main__":
                                 print(
                                     f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} ({sum(player_numbers)})")
                                 break
-                        if sum(player_numbers) > 21:
+                        if sum(player_numbers) > 21 and action == "hit":
                             print("your friend won")
                             print(f"you had {player_numbers} ({sum(player_numbers)})")
                             break
-                        elif sum(player_numbers) == 21:
+                        elif sum(player_numbers) == 21 and action == "hit":
                             print("you won!")
                             print(f"you had {player_numbers} (21)")
                             break
@@ -268,7 +278,11 @@ if __name__ == "__main__":
                 print("Your friend said you’re a good friend! They mentioned knowing a secret door in this room and want you to go in for a surprise!")
                 game.current_location_id = 30
             elif choice == "get 10 extra moves":
-                moves += 10
+                if not already_claimed_bonus:
+                    moves += 10
+                    already_claimed_bonus = True
+                    game.current_location_id = 24
+
             elif choice == "use back door":
                 print("You need to figure out the 4-digit code to unlock the door. The clues written behind the door are:\n"
                 "1.The code is made up of four digits.\n"
