@@ -108,11 +108,11 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })
 
     win_walkthrough = ["pickup cellphone", "go south", "go south", "call reciption", "4169784500", "go south",
                        "go east", "go east", "go north", "go north", "go east", "go north", "go east", "go east",
@@ -127,13 +127,14 @@ if __name__ == "__main__":
             AdventureGameSimulation('game_data.json', 7, win_walkthrough).get_id_log())
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
-    lose_demo = ["pickup cellphone", "go south", "go south", "call reciption", "4169784500", "go south",
+    lose_demo = ["pickup cellphone", "go south", "go north", "go south", "go south", "call reciption", "4169784500",
+                 "go south",
                  "go east", "go east", "go north", "go north", "go east", "go north", "go east", "go east",
                  "go south", "face social anxiety and enter", "goose alone fox goose beans alone goose",
                  "pickup laptop charger", "go north", "go north", "go west", "go west", "go north",
                  "unlock the computer", "62759709", "go south", "go south", "go west", "go south", "go south",
                  "go west"]
-    expected_log = [7, 7, 13, 19, 19, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18,
+    expected_log = [7, 7, 13, 7, 13, 19, 19, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18,
                     18, 24, 24, 18, 12, 11, 10, 4, 4, 4, 10, 16, 15, 21, 27, 26]
     # Uncomment the line below to test your demo
     assert (expected_log ==
@@ -157,7 +158,7 @@ if __name__ == "__main__":
 
     enhancement2_demo = ["go south", "go south", "go south", "go east", "go east", "go north", "go north", "go east",
                          "go north", "go north", "unlock the computer", "62759709"]
-    expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 4, 4, 4,]
+    expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 4, 4, 4, ]
     assert (expected_log ==
             AdventureGameSimulation('game_data.json', 7, enhancement2_demo).get_id_log())
 
