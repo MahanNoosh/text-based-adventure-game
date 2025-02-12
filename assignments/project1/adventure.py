@@ -306,6 +306,7 @@ if __name__ == "__main__":
         if moves_remaining == 0:
             print("You lose :(")
             game.ongoing = False
+            break
         location = game.get_location()
 
         if choice not in menu:
