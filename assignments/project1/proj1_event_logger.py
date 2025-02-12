@@ -26,9 +26,6 @@ from dataclasses import dataclass
 from typing import Optional
 
 
-# TODO: Copy/paste your ex1_event_logger code below, and modify it if needed to fit your game
-
-
 @dataclass
 class Event:
     """
@@ -42,14 +39,6 @@ class Event:
     - prev: Event object representing the previous event in the game, None if this is the first game event
     """
 
-    # NOTES:
-    # This is proj1_event_logger (separate from the ex1 file). In this file, you may add new attributes/methods,
-    # or modify the names or types of provided attributes/methods, as needed for your game.
-    # If you want to create a special type of Event for your game that requires a different
-    # set of attributes, you can create new classes using inheritance, as well.
-
-    # TODO: Add attributes below based on the provided descriptions above.
-
     id_num: int
     description: str
     next_command: Optional[str] = None
@@ -62,13 +51,11 @@ class EventList:
     A linked list of game events.
 
     Instance Attributes:
-        - # TODO add descriptions of instance attributes here
         - first: the first Event to happen
         - last: the last Event to happen
 
     Representation Invariants:
-        - # TODO add any appropriate representation invariants, if needed
-        - isinstance(first, type(last))
+        - type(first) == type(last)
     """
     first: Optional[Event]
     last: Optional[Event]
@@ -86,7 +73,6 @@ class EventList:
             print(f"Location: {curr.id_num}, Command: {curr.next_command}")
             curr = curr.next
 
-    # TODO: Complete the methods below, based on the given descriptions.
     def is_empty(self) -> bool:
         """Return whether this event list is empty."""
 

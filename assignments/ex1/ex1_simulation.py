@@ -32,7 +32,6 @@ from typing import Optional
 from ex1_event_logger import Event, EventList
 
 
-# Note: We have completed the Location class for you. Do NOT modify it here, for ex1.
 @dataclass
 class Location:
     """A location in our text adventure game world.
@@ -69,20 +68,16 @@ class SimpleAdventureGame:
         - game_data_file is the filename of a valid game data JSON file
         """
 
-        # Note: We have completed this method for you. Do NOT modify it here, for ex1.
-
         self._locations = self._load_game_data(game_data_file)
-        self.current_location_id = initial_location_id  # game begins at this location
+        self.current_location_id = initial_location_id
 
     @staticmethod
     def _load_game_data(filename: str) -> dict[int, Location]:
         """Load locations and items from a JSON file with the given filename and
         return a dictionary of locations mapping each game location's ID to a Location object."""
 
-        # Note: We have completed this method for you. Do NOT modify it here, for ex1.
-
         with open(filename, 'r') as f:
-            data = json.load(f)  # This loads all the data from the JSON file
+            data = json.load(f)
 
         locations = {}
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
@@ -151,23 +146,18 @@ class AdventureGameSimulation:
         [1, 2, 3, 3]
         """
 
-        # Note: We have completed this method for you. Do NOT modify it for ex1.
-
         return self._events.get_id_log()
 
     def run(self) -> None:
         """Run the game simulation and log location descriptions."""
 
-        # Note: We have completed this method for you. Do NOT modify it for ex1.
-
-        current_event = self._events.first  # Start from the first event in the list
+        current_event = self._events.first
 
         while current_event:
             print(current_event.description)
             if current_event is not self._events.last:
                 print("You choose:", current_event.next_command)
 
-            # Move to the next event in the linked list
             current_event = current_event.next
 
 

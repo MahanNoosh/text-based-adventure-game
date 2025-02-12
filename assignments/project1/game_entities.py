@@ -34,19 +34,16 @@ class Location:
         - visited: a boolean indicating whether the player has previously visited this location.
 
     Representation Invariants:
-        -self.id_num >= 0 #TODO
+        -self.id_num > 0
+        -brief_description != ""
+        -long_description != ""
+        -len(available_commands) > 0
     """
-
-    # This is just a suggested starter class for Location.
-    # You may change/add parameters and the data available for each Location object as you see fit.
-    #
-    # The only thing you must NOT change is the name of this class: Location.
-    # All locations in your game MUST be represented as an instance of this class.
 
     def __init__(self, location_id, brief_description, long_description, available_commands, items,
                  visited=False) -> None:
-        """Initialize a new location.
-
+        """
+        Initialize a new location.
         """
 
         self.id_num = location_id
@@ -71,18 +68,10 @@ class Item:
     Representation Invariants:
         - name != ''
         - description != ''
-        - start_position >=0 #TODO
-        - target_position >=0
-        - target_points >=0
+        - start_position > 0
+        - target_position > 0
+        - target_points > 0
     """
-
-    # NOTES:
-    # This is just a suggested starter class for Item.
-    # You may change these parameters and the data available for each Item object as you see fit.
-    # (The current parameters correspond to the example in the handout).
-    #
-    # The only thing you must NOT change is the name of this class: Item.
-    # All item objects in your game MUST be represented as an instance of this class.
 
     name: str
     description: str

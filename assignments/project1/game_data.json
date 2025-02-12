@@ -241,28 +241,28 @@
       "description": "You can use your phone to make calls!",
       "start_position": 7,
       "target_position": 19,
-      "target_points": 5
+      "target_points": 1
     },
     {
       "name": "USB drive",
       "description": "he only copy of your game, because of course you forgot to back it up",
       "start_position": 4,
       "target_position": 7,
-      "target_points": 5
+      "target_points": 1
     },
     {
       "name": "lucky mug",
       "description": "This is your lucky mug!!! you can't do anything without it!!!!",
       "start_position": 19,
       "target_position": 7,
-      "target_points": 5
+      "target_points": 17
     },
     {
       "name": "laptop charger",
       "description": "your battery is 5%, you need it to charge your laptop.",
       "start_position": 24,
       "target_position": 7,
-      "target_points": 5
+      "target_points": 1
     }
   ]
 }
