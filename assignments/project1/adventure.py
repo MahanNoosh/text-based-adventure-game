@@ -331,6 +331,7 @@ if __name__ == "__main__":
             location_description = location.brief_description
         else:
             location_description = location.long_description
+            location.visited = True
 
         print(location_description)
 
@@ -347,14 +348,15 @@ if __name__ == "__main__":
             choice = input("\nEnter action: ").lower().strip()
         print("========")
         print("You decided to:", choice)
+        print()
 
         if choice in menu:
             if choice == "log":
                 game_log.display_events()
             elif choice == "look":
-                print(location.long_description)
+                location.visited = False
             elif choice == "score":
-                print(game.score)
+                print(f"You currently have {game.score}/{WIN_SCORE} score")
             elif choice == "quit":
                 game.ongoing = False
             elif choice == "inventory":
@@ -383,10 +385,10 @@ if __name__ == "__main__":
                 call_recepton()
             elif choice == "unlock the computer":
                 unlock_computer()
-            elif choice == "enter robarts from back door":
+            elif choice == "knock on robarts back door":
                 print(
                     "The backdoor is locked. You knocked, but no one answered. Try entering through the front "
-                    "door on St. George.")
+                    "door on St. George.\n")
             elif choice == "face social anxiety and enter":
                 social_anxiety()
             elif choice == "play with them":

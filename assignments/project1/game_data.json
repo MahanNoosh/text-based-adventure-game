@@ -2,9 +2,9 @@
   "locations": [
     {
       "id": 7,
-      "name": "My Room",
-      "brief_description": "You are in your dorm room. To the South, there is a hallway leading to Reception. To the North, another hallway leads to a backdoor.",
-      "long_description": "You are in your dorm room, a small but familiar space. The walls are lined with shelves filled with textbooks, random papers, and a few mementos from home. It's quiet—too quiet, perhaps—aside from the hum of your laptop on the desk. Your bed is unmade, with clothes scattered around. To the South, there is a hallway leading to Reception. To the North, another hallway leads to a backdoor. Oh wait, don't use your phone; it will distract you!",
+      "name": "Dorm Room",
+      "brief_description": "\n\tYou are in your dorm room. To the South, there is a hallway leading to Reception. To the\nNorth, another hallway leads to a backdoor.\n",
+      "long_description": "\n\tYou are in your dorm room, a small but familiar space. The walls are lined with shelves\nfilled with textbooks, random papers, and a few mementos from home. It's quiet—too quiet,\nperhaps—aside from the hum of your laptop on the desk. Your bed is unmade, with clothes\nscattered around. To the South, there is a hallway leading to Reception. To the North,\nanother hallway leads to a backdoor. Oh wait, don't use your phone; it will distract you!\n",
       "available_commands": {
         "go north": 1,
         "go south": 13,
@@ -18,8 +18,8 @@
     {
       "id": 13,
       "name": "South Hallway",
-      "brief_description": "You are in the South Hallway. To the North, you can go to your room. To the South, you will find the Reception.",
-      "long_description": "You are in the South Hallway. As you look around, you notice a small note pinned to the wall near the door to Reception. It has the receptionist's number written on it, just in case you need assistance. It is 416-978-4500. To the South, you will find the Reception. To the North, you can go to your room.",
+      "brief_description": "\n\tYou are in the South Hallway. To the North, you can go to your room. To the South, you will\nfind the Reception.\n",
+      "long_description": "\n\tYou are in the South Hallway. As you look around, you notice a small note pinned to the wall\nnear the door to Reception. It has the receptionist's number written on it, just in case you need\nassistance. It is 416-978-4500. To the South, you will find the Reception. To the North, you\ncan go to your room.\n",
       "available_commands": {
         "go north": 7,
         "go south": 19
@@ -29,8 +29,8 @@
     {
       "id": 19,
       "name": "Knox College Reception",
-      "brief_description": "You are in Knox College Reception. To the South, you will leave to St. George st. To the North, there is the hallway.",
-      "long_description": "You are at the Knox College Reception. The small, quiet area is empty. The soft hum of the building is the only sound. It looks like no one is here, so you'll have to use your cellphone to reach the receptionist. To the South, you will leave to St. George st. To the North, there is the hallway.",
+      "brief_description": "\n\tYou are in Knox College Reception. To the South, you will leave to St. George st. To the\nNorth, there is the hallway.\n",
+      "long_description": "\n\tYou are at the Knox College Reception. The small, quiet area is empty. The soft hum of the\nbuilding is the only sound. It looks like no one is here, so you'll have to use your cellphone\nto reach the receptionist. To the South, you will leave to St. George st. To the North, there\nis the hallway.\n",
       "available_commands": {
         "go north": 13,
         "go south": 25,
@@ -43,8 +43,8 @@
     {
       "id": 25,
       "name": "St. George Street",
-      "brief_description": "Now you are out in St. Gerorge st. To East, you enter Art & Science building. To North, you enter Knox College Reception",
-      "long_description": "Now you are out in St. Gerorge st. To East, you enter Art & Science building. To North, you enter Knox College Reception",
+      "brief_description": "\n\tNow you are out in St. Gerorge st. To East, you enter Art & Science building. To North, you\nenter Knox College Reception\n",
+      "long_description": "\n\tNow you are out in St. Gerorge st. To East, you enter Art & Science building. To North, you\nenter Knox College Reception\n",
       "available_commands": {
         "go north": 19,
         "go east": 26
@@ -54,8 +54,8 @@
     {
       "id": 26,
       "name": "Art & Science Building",
-      "brief_description": "You are in the Art & Science Building. To East, there is Robarts library. To West, you leave to St. George st.",
-      "long_description": "You are in the Art & Science Building, a place you were just at for your MAT137 tutorial. The hustle of students heading to and from classes fills the air, but you’re more focused on the task at hand—retrieving your lost laptop charger. You scan the area, but all you find is a crumpled piece of paper lying on the ground. You might want to check it out. Wait, this looks familiar. It’s part of the password to the computer you used to print CSC111 practice test, that you ripped earlier. The paper has the following two digits written on it: -62-. You remember heading over to Robarts Library after leaving the Art & Science Building. It’s possible you left your charger there. To East, there is Robarts library. To West, you leave to St. George st.",
+      "brief_description": "\n\tYou are in the Art & Science Building. To East, there is Robarts library. To West, you leave\nto St. George st.",
+      "long_description": "\n\tYou are in the Art & Science Building, a place you were just at for your MAT137 tutorial. The\nhustle of students heading to and from classes fills the air, but you’re more focused on the\ntask at hand—retrieving your lost laptop charger. You scan the area, but all you find is a crumpled\npiece of paper lying on the ground. You might want to check it out. Wait, this looks familiar.\nIt’s part of the password to the computer you used to print CSC111 practice test, that you\nripped earlier. The paper has the following two digits written on it: -62-. You remember heading\nover to Robarts Library after leaving the Art & Science Building. It’s possible you left your\ncharger there. To East, there is Robarts library. To West, you leave to St. George st.\n",
       "available_commands": {
         "go west": 25,
         "go east": 27
@@ -65,8 +65,8 @@
     {
       "id": 27,
       "name": "Robarts Library",
-      "brief_description": "You are in Robarts Library. To the North, the reception desk is just ahead. To the West, you enter Art & Science building.",
-      "long_description": "You are in Robarts Library, a towering building filled with study spaces, quiet corners, and students buried in textbooks. The air smells of old paper and coffee, and the low hum of whispered conversations fills the space. You’ve come here after your time in the Art & Science Building, hoping that your laptop charger might have been left behind. As you make your way through the library, your eyes catch something on one of the desks—a crumpled piece of paper. You pick it up and unfold it. It’s the second part of the paper, this part has: -75-. You decide to head over to the library reception to ask if anyone has turned in a lost charger. To the North, the reception desk is just ahead. To the West, you enter Art & Science building.",
+      "brief_description": "\n\tYou are in Robarts Library. To the North, the reception desk is just ahead. To the West, you\nenter Art & Science building.\n",
+      "long_description": "\n\tYou are in Robarts Library, a towering building filled with study spaces, quiet corners, and\nstudents buried in textbooks. The air smells of old paper and coffee, and the low hum of whispered\nconversations fills the space. You’ve come here after your time in the Art & Science Building,\nhoping that your laptop charger might have been left behind. As you make your way through the\nlibrary, your eyes catch something on one of the desks—a crumpled piece of paper. You pick it\nup and unfold it. It’s the second part of the paper, this part has: -75-. You decide to head\nover to the library reception to ask if anyone has turned in a lost charger. To the North,\nthe reception desk is just ahead. To the West, you enter Art & Science building.\n",
       "available_commands": {
         "go north": 21,
         "go west": 26
@@ -76,8 +76,8 @@
     {
       "id": 21,
       "name": "Robarts Reciption",
-      "brief_description": "You are at Robarts Reception. To the North, stairs to second floor. To the South, Robarts Library.",
-      "long_description": "You are at Robarts Reception, the desk neatly arranged with pamphlets and a computer screen displaying library hours. The receptionist looks up from their desk as you approach. After you ask about your laptop charger, they nod sympathetically. \"I'm afraid we don’t keep personal items at the reception. You’ll need to check the Lost and Found area. It’s located on the third floor. If it's been turned in, that’s where it would be.\"With this new lead, you thank the receptionist, but before heading to the third floor, you decide to check Starbucks on the first floor. You remember grabbing a coffee there earlier and wonder if you might have left your charger there instead. To the North, stairs to second floor. To the South, Robarts Library.",
+      "brief_description": "\n\tYou are at Robarts Reception. To the North, stairs to second floor. To the South, Robarts Library.\n",
+      "long_description": "\n\tYou are at Robarts Reception, the desk neatly arranged with pamphlets and a computer screen\ndisplaying library hours. The receptionist looks up from their desk as you approach. After you\nask about your laptop charger, they nod sympathetically. \"I'm afraid we don’t keep personal\nitems at the reception. You’ll need to check the Lost and Found area. It’s located on the third\nfloor. If it's been turned in, that’s where it would be.\"With this new lead, you thank the\nreceptionist, but before heading to the third floor, you decide to check Starbucks on the first\nfloor. You remember grabbing a coffee there earlier and wonder if you might have left your\ncharger there instead. To the North, stairs to second floor. To the South, Robarts Library.\n",
       "available_commands": {
         "go north": 15,
         "go south": 27
@@ -87,8 +87,8 @@
     {
       "id": 15,
       "name": "Stairs to Second Floor",
-      "brief_description": "You are at the Stairs to the Second Floor. Nothing here but the familiar creak of old steps, leading up to the second floor of Robarts Library. There’s no indication of anything special, just a simple stairwell with a few students passing by as they head up. To the East, you can head to Starbucks. To the South, you’ll find the Robarts Reception where you spoke with the librarian.",
-      "long_description": "You are at the Stairs to the Second Floor. Nothing here but the familiar creak of old steps, leading up to the second floor of Robarts Library. There’s no indication of anything special, just a simple stairwell with a few students passing by as they head up. To the East, you can head to Starbucks. To the South, you’ll find the Robarts Reception where you spoke with the librarian.",
+      "brief_description": "\n\tYou are at the Stairs to the Second Floor. Nothing here but the familiar creak of old steps,\nleading up to the second floor of Robarts Library. There’s no indication of anything special,\njust a simple stairwell with a few students passing by as they head up. To the East, you can\nhead to Starbucks. To the South, you’ll find the Robarts Reception where you spoke with the librarian.\n",
+      "long_description": "\n\tYou are at the Stairs to the Second Floor. Nothing here but the familiar creak of old steps,\nleading up to the second floor of Robarts Library. There’s no indication of anything special,\njust a simple stairwell with a few students passing by as they head up. To the East, you can\nhead to Starbucks. To the South, you’ll find the Robarts Reception where you spoke with the librarian.\n",
       "available_commands": {
         "go east": 16,
         "go south": 21
@@ -98,8 +98,8 @@
     {
       "id": 16,
       "name": "Starbucks",
-      "brief_description": "You are at Starbucks. To the North, there is the Second-floor common area. To the West, you go to the stairs.",
-      "long_description": "You are at Starbucks, a cozy corner of Robarts Library with the comforting scent of coffee and pastries in the air. A few students are sitting with their laptops, and the sound of espresso machines fills the background. You scan the tables, hoping to spot your missing laptop charger. As you walk to one of the back tables, you notice a crumpled piece of paper tucked under a napkin holder. You unfold it, and this is the third part of the password. It reads: 97. To the North, there is the Second-floor common area. To the West, you go to the stairs.",
+      "brief_description": "\n\tYou are at Starbucks. To the North, there is the Second-floor common area. To the West, you\ngo to the stairs.\n",
+      "long_description": "\n\tYou are at Starbucks, a cozy corner of Robarts Library with the comforting scent of coffee\nand pastries in the air. A few students are sitting with their laptops, and the sound of espresso\nmachines fills the background. You scan the tables, hoping to spot your missing laptop charger.\nAs you walk to one of the back tables, you notice a crumpled piece of paper tucked under a\nnapkin holder. You unfold it, and this is the third part of the password. It reads: -97-. To the\nNorth, there is the Second-floor common area. To the West, you go to the stairs.\n",
       "available_commands": {
         "go north": 10,
         "go west": 15
@@ -109,8 +109,8 @@
     {
       "id": 10,
       "name": "Second Floor Common Area",
-      "brief_description": "You are in the Second Floor Common Area. To the East, the stairs lead up to the Third Floor. To the North, you can enter the Printing Room, where students pick up their printed assignments and notes. To the South, you go to Starbucks.",
-      "long_description": "You are in the Second Floor Common Area, a quiet space where students gather to study or take a break between lectures. The room is lined with long tables, some occupied by students lost in their textbooks, while others are typing away on their laptops. The soft hum of quiet conversation and the occasional rustling of pages fill the air. To the East, the stairs lead up to the Third Floor. To the North, you can enter the Printing Room, where students pick up their printed assignments and notes. To the South, you go to Starbucks.",
+      "brief_description": "\n\tYou are in the Second Floor Common Area. To the East, the stairs lead up to the Third Floor.\nTo the North, you can enter the Printing Room, where students pick up their printed assignments\nand notes. To the South, you go to Starbucks.\n",
+      "long_description": "\n\tYou are in the Second Floor Common Area, a quiet space where students gather to study or take\na break between lectures. The room is lined with long tables, some occupied by students lost in\ntheir textbooks, while others are typing away on their laptops. The soft hum of quiet conversation\nand the occasional rustling of pages fill the air. To the East, the stairs lead up to the\nThird Floor. To the North, you can enter the Printing Room, where students pick up their printed\nassignments and notes. To the South, you go to Starbucks.\n",
       "available_commands": {
         "go east": 11,
         "go north": 4,
@@ -121,8 +121,8 @@
     {
       "id": 4,
       "name": "Print Area",
-      "brief_description": "You are at the Print Area. To the West, you can use stairs to Backdoor . To the South, you can return to the Second Floor Common Area.",
-      "long_description": "You are at the Print Area, a busy section of the library where students rush to collect their freshly printed notes and assignments. The air smells faintly of ink and warm paper, and the steady hum of printers fills the background. On one of the desks, you spot your laptop, left open but locked. Relief washes over you—this means your USB drive is still plugged in. But there’s a problem: you need to unlock your computer first before you can safely eject it. To the West, you can use stairs to Backdoor . To the South, you can return to the Second Floor Common Area. ",
+      "brief_description": "\n\tYou are at the Print Area. To the West, you can use stairs to Backdoor. To the South, you\ncan return to the Second Floor Common Area.\n",
+      "long_description": "\n\tYou are at the Print Area, a busy section of the library where students rush to collect their\nfreshly printed notes and assignments. The air smells faintly of ink and warm paper, and the steady\nhum of printers fills the background. On one of the desks, you spot your laptop, left open but\nlocked. Relief washes over you—this means your USB drive is still plugged in. But there’s\na problem: you need to unlock your computer first before you can safely eject it. To the West, you\ncan use stairs to Backdoor . To the South, you can return to\nthe Second Floor Common Area.\n",
       "available_commands": {
         "go west": 3,
         "go south": 10,
@@ -135,8 +135,8 @@
     {
       "id": 3,
       "name": "Stairs to Back Door",
-      "brief_description": "You are at the Stairs to the Backdoor. To the West, you can head out to the Back Door. To the East, you can return to the Print Room.",
-      "long_description": "You are at the Stairs to the Backdoor. There’s nothing notable here but a set of stairs leading to an exit. The stairs creak slightly as you step on them, and the air feels cooler near the back exit. To the West, you can head out to the Back Door. To the East, you can return to the Print Room.",
+      "brief_description": "\n\tYou are at the Stairs to the Backdoor. To the West, you can head out to the Back Door. To\nthe East, you can return to the Print Room.\n",
+      "long_description": "\n\tYou are at the Stairs to the Backdoor. There’s nothing notable here but a set of stairs leading\nto an exit. The stairs creak slightly as you step on them, and the air feels cooler near the back\nexit. To the West, you can head out to the Back Door. To the East, you can return to the Print Room.\n",
       "available_commands": {
         "go west": 2,
         "go east": 4
@@ -146,8 +146,8 @@
     {
       "id": 2,
       "name": "Back Door",
-      "brief_description": "You are at the Back Door. To the West, you can return to the Stairs to the Back Door.",
-      "long_description": "You are at the Back Door, which leads to a hallway connected to your dorm. It’s a quicker route to get there, but you need to unlock the door first. The door requires a password, and to get it, you’ll need to solve a puzzle. The lock displays a series of numbers and symbols, waiting for you to figure out the correct combination. You’ll have to solve the puzzle to proceed. To the West, you can return to the Stairs to the Back Door.",
+      "brief_description": "\n\tYou are at the Back Door. To the West, you can return to the Stairs to the Back Door.\n",
+      "long_description": "\n\tYou are at the Back Door, which leads to a hallway connected to your dorm. It’s a quicker\nroute to get there, but you need to unlock the door first. The door requires a password, and to get it,\nyou’ll need to solve a puzzle. The lock displays a series of numbers and symbols, waiting for you to\nfigure out the correct combination. You’ll have to solve the puzzle to proceed. To\nthe West, you can return to the Stairs to the Back Door.\n",
       "available_commands": {
         "use back door": 2,
         "go east": 3
@@ -156,20 +156,20 @@
     },
     {
       "id": 1,
-      "name": "North hallway",
-      "brief_description": "",
-      "long_description": "You are in North hallway, there is nothing here. You see a backdoor that might lead to Robarts Library. To the South, you can enter your room.",
+      "name": "North Hallway",
+      "brief_description": "\n\tYou are in the North Hallway. To the south, you can go to your room. To the east, you will\nfind Robarts back door.\n",
+      "long_description": "\n\tYou are in North hallway, there is nothing here. You see a backdoor that might lead to Robarts\nLibrary. To the South, you can enter your room.\n",
       "available_commands": {
         "go south": 7,
-        "knock the robarts backdoor": 1
+        "knock on robarts back door": 1
       },
       "items": []
     },
     {
       "id": 11,
       "name": "Stairs to Third Floor",
-      "brief_description": "You are at the Stairs to the Third Floor. To the East, you can enter the Third Floor Common Room. To the West, you can return to the Second Floor Common Area.",
-      "long_description": "You are at the Stairs to the Third Floor. Nothing special here—just a quiet stairwell with a few students passing by, heading up or down between floors. The walls are bare except for a few outdated posters pinned to a notice board. To the East, you can enter the Third Floor Common Room. To the West, you can return to the Second Floor Common Area.",
+      "brief_description": "\n\tYou are at the Stairs to the Third Floor. To the East, you can enter the Third Floor Common\nRoom. To the West, you can return to the Second Floor Common Area.\n",
+      "long_description": "\n\tYou are at the Stairs to the Third Floor. Nothing special here—just a quiet stairwell with a\nfew students passing by, heading up or down between floors. The walls are bare except for a few\noutdated posters pinned to a notice board. To the East, you can enter the Third Floor Common Room. To the\nWest, you can return to the Second Floor Common Area.\n",
       "available_commands": {
         "go east": 12,
         "go west": 10
@@ -179,8 +179,8 @@
     {
       "id": 12,
       "name": "Third Floor Common Area",
-      "brief_description": "You are in the Third Floor Common Area. To the South, you can head to the Lost and Found to check for your laptop charger. To the West, you can return to the Stairs to the Second Floor.",
-      "long_description": "You are in the Third Floor Common Area, a quieter study space with dim lighting and a few scattered students working in silence. The air feels heavier here, as if the weight of deadlines and upcoming exams hangs over the room. A few empty coffee cups are left behind on tables, evidence of long study sessions. As you move between the tables, something catches your eye—a small, crumpled piece of paper wedged between two books on a nearby shelf. You pick it up and unfold it. Another part of the password! It reads: -09-. To the South, you can head to the Lost and Found to check for your laptop charger. To the West, you can return to the Stairs to the Second Floor.",
+      "brief_description": "\n\tYou are in the Third Floor Common Area. To the South, you can head to the Lost and Found to\ncheck for your laptop charger. To the West, you can return to the Stairs to the Second Floor.\n",
+      "long_description": "\n\tYou are in the Third Floor Common Area, a quieter study space with dim lighting and a few scattered\nstudents working in silence. The air feels heavier here, as if the weight of deadlines and\nupcoming exams hangs over the room. A few empty coffee cups are left behind on tables, evidence of long\nstudy sessions. As you move between the tables, something catches your eye—a small, crumpled piece of\npaper wedged between two books on a nearby shelf. You pick it up and unfold it. Another part\nof the password! It reads: -09-. To the South, you can head to the Lost and Found to check for your\nlaptop charger. To the West, you can return to the Stairs to the Second Floor.\n",
       "available_commands": {
         "go south": 18,
         "go west": 11
@@ -190,8 +190,8 @@
     {
       "id": 18,
       "name": "Lost and Found",
-      "brief_description": "You are at the Lost and Found. To the South, you can head to the Private Study Room to check. To the North, you can return to the Third Floor Common Area.",
-      "long_description": "You are at the Lost and Found, a small, cluttered office filled with misplaced notebooks, forgotten water bottles, and an impressive collection of unclaimed sweaters. A staff member behind the counter looks up as you ask about your laptop charger. \"Sorry, we don’t have any chargers turned in today. Maybe try checking where you last used it?\" As you think back, it suddenly hits you—you might have left it in the Private Study Room! To the South, you can head to the Private Study Room to check. To the North, you can return to the Third Floor Common Area.",
+      "brief_description": "\n\tYou are at the Lost and Found. To the South, you can head to the Private Study Room to check.\nTo the North, you can return to the Third Floor Common Area.\n",
+      "long_description": "\n\tYou are at the Lost and Found, a small, cluttered office filled with misplaced notebooks, forgotten\nwater bottles, and an impressive collection of unclaimed sweaters. A staff member behind the\ncounter looks up as you ask about your laptop charger. \"Sorry, we don’t have any chargers turned in today.\nMaybe try checking where you last used it?\" As you think back, it suddenly hits you—you might\nhave left it in the Private Study Room! To the South, you can head to the Private Study Room\nto check. To the North, you can return to the Third Floor Common Area.\n",
       "available_commands": {
         "face social anxiety and enter": 18,
         "go north": 12
@@ -201,8 +201,8 @@
     {
       "id": 24,
       "name": "Study Room",
-      "brief_description": "You are at the Study Room. To the West, you can take the stairs up to the Fourth Floor. To the North, you can return to the Lost and Found.",
-      "long_description": "You are at the Study Room, a small, enclosed space meant for quiet, focused work. The walls are lined with whiteboards covered in scribbled equations and half-finished notes. A single overhead light casts a dim glow over the desk in the center of the room. Someone is already here, hunched over their laptop, completely absorbed in their work. You freeze. Your laptop charger is somewhere in this room—you’re sure of it—but the thought of interrupting them makes your chest tighten. What if they get annoyed? What if they give you a weird look? To the West, you can take the stairs up to the Fourth Floor. To the North, you can return to the Lost and Found.",
+      "brief_description": "\n\tYou are at the Study Room. To the West, you can take the stairs up to the Fourth Floor. To\nthe North, you can return to the Lost and Found.\n",
+      "long_description": "\n\tYou are at the Study Room, a small, enclosed space meant for quiet, focused work. The walls\nare lined with whiteboards covered in scribbled equations and half-finished notes. A single overhead\nlight casts a dim glow over the desk in the center of the room. Someone is already here, hunched over\ntheir laptop, completely absorbed in their work. You freeze. Your laptop charger is somewhere in this\nroom—you’re sure of it—but the thought of interrupting them makes your chest tighten. What\nif they get annoyed? What if they give you a weird look? To the West, you can take the stairs up to\nthe Fourth Floor. To the North, you can return to the Lost and Found.\n",
       "available_commands": {
         "go west": 23,
         "go north": 18,
@@ -216,8 +216,8 @@
     {
       "id": 23,
       "name": "Stairs to Forth Floor",
-      "brief_description": "You are at the Stairs to the Fourth Floor. To the West, you can return to the Study Room.",
-      "long_description": "You are at the Stairs to the Fourth Floor. The steps are cracked, with caution tape lazily draped across the entrance. A faded sign reads: \"Under Maintenance – Do Not Use.\" It’s clear you won’t be going any further this way. There’s nothing here but broken stairs. To the West, you can return to the Study Room.",
+      "brief_description": "\n\tYou are at the Stairs to the Fourth Floor. To the West, you can return to the Study Room.\n",
+      "long_description": "\n\tYou are at the Stairs to the Fourth Floor. The steps are cracked, with caution tape lazily\ndraped across the entrance. A faded sign reads: \"Under Maintenance – Do Not Use.\" It’s clear you won’t\nbe going any further this way. There’s nothing here but broken stairs. To the West, you can return\nto the Study Room.\n",
       "available_commands": {
         "go east": 24
       },
@@ -226,8 +226,8 @@
     {
       "id": 30,
       "name": "???",
-      "brief_description": "You find yourself in a Secret Room. To the North, you can go back to the study room.",
-      "long_description": "You find yourself in a Secret Room, hidden away from the usual corridors of the library and dorms. The space is dimly lit, with shelves full of dusty old books and strange artifacts. In the center of the room, perched on a small rug, sits a magical capybara. It looks up at you with intelligent eyes and gives a slight nod. \"Ah, I see you've found me,\" it says, its voice surprisingly clear and soothing. \"I have the power to grant you something that could help you on your quest... I can give you an extra 10 moves. But be careful, as time can be a fickle thing.\" The capybara looks at you expectantly, awaiting your decision. To the North, you can go back to the study room.",
+      "brief_description": "\n\tYou find yourself in a Secret Room. To the North, you can go back to the study room.\n",
+      "long_description": "\n\tYou find yourself in a Secret Room, hidden away from the usual corridors of the library and\ndorms. The space is dimly lit, with shelves full of dusty old books and strange artifacts. In the center\nof the room, perched on a small rug, sits a magical capybara. It looks up at you with intelligent eyes and gives a slight nod.\n\"Ah, I see you've found me,\" it says, its voice surprisingly clear and soothing.\n\"I have the power to grant you something that could help you on your quest...\nI can give you an extra 10 moves. But be careful, as time can be a fickle thing.\"The capybara\nlooks at you expectantly, awaiting your decision. To the North, you can go back to the study room.\n",
       "available_commands": {
         "go north": 24,
         "get 10 extra moves": 30
@@ -238,28 +238,28 @@
   "items": [
     {
       "name": "cellphone",
-      "description": "You can use your phone to make calls!",
+      "description": "\tYou can use your phone to make calls!\n",
       "start_position": 7,
       "target_position": 19,
       "target_points": 1
     },
     {
       "name": "USB drive",
-      "description": "he only copy of your game, because of course you forgot to back it up",
+      "description": "\the only copy of your game, because of course you forgot to back it up\n",
       "start_position": 4,
       "target_position": 7,
       "target_points": 1
     },
     {
       "name": "lucky mug",
-      "description": "This is your lucky mug!!! you can't do anything without it!!!!",
+      "description": "\tThis is your lucky mug!!! you can't do anything without it!!!!\n",
       "start_position": 19,
       "target_position": 7,
       "target_points": 17
     },
     {
       "name": "laptop charger",
-      "description": "your battery is 5%, you need it to charge your laptop.",
+      "description": "\tyour battery is 5%, you need it to charge your laptop.\n",
       "start_position": 24,
       "target_position": 7,
       "target_points": 1
@@ -270,9 +270,9 @@
       "name":"submit project" ,
       "prompt":"",
       "loc" : 7,
-      "win": "Nice, you submitted it two minutes before the deadline!\nYou win!",
+      "win": "\nNice, you submitted it two minutes before the deadline!\nYou win!\n",
       "next_loc":7,
-      "lose": "You don’t have the required items to submit your project.",
+      "lose": "\nYou don’t have the required items to submit your project.\n",
       "answer":[],
       "dialogue": ""
     },
@@ -280,54 +280,53 @@
       "name":"call reception" ,
       "prompt":"dial phone number: ",
       "loc": 19,
-      "win": "They said you left it in the bathroom cabinet. OH! \n You use it while brushing your teeth to save water. That makes sense!",
+      "win": "\nThey said you left it in the bathroom cabinet. OH! You use it while brushing your teeth to save water.\nThat makes sense!\n",
       "next_loc": 19,
-      "lose": "Wait, who is this? Sorry, wrong number.",
+      "lose": "\nWait, who is this? Sorry, wrong number.\n",
       "answer":["4169784500"],
-      "dialogue": "You don’t have your phone on you, how can you call them?"
+      "dialogue": "\nYou don’t have your phone on you, how can you call them?\n"
 
     },
     {
       "name":"unlock computer" ,
       "prompt":"Enter the password: ",
       "loc" : 4,
-      "win": "Nice! Thank God you found the password!",
+      "win": "\nNice! Thank God you found the password!\n",
       "next_loc": 4,
-      "lose": "Oh no, the password is wrong!",
+      "lose": "\nOh no, the password is wrong!\n",
       "answer":["62759709"],
       "dialogue": ""
     },
     {
       "name":"social anxiety" ,
-      "prompt":"Enter what you take to the other side in order and space seperated (fox, goose, beans, alone): ",
+      "prompt":"\nEnter what you take to the other side in order and space seperated (fox, goose, beans, alone): ",
       "loc": 18,
-      "win": "Nice! See? You should be more confident.",
+      "win": "\nNice! See? You should be more confident.\n",
       "next_loc": 24,
-      "lose": "I don’t think this is working. Did you enter it correctly?",
+      "lose": "\nI don’t think this is working. Did you enter it correctly?\n",
       "answer":["goose alone fox goose beans alone goose", "goose alone beans goose fox alone goose"],
-      "dialogue": "You don't have the confidence to get in the room! So, let’s make a bet: if you solve this puzzle, \"\n                \"you should knock and go in. After all, it’s a tough one, and you did it! You have a fox, a goose, and a bag of beans. You need to cross a river with them, \"\n                \"but the boat can only carry you and one item at a time.\\n\"\n                \"If left alone together, the fox will eat the goose, and the goose will eat the beans. \"\n                \"How can you get them all across safely?"
-
+      "dialogue": "\n\tYou don't have the confidence to get in the room! So, let’s make a bet: if you solve this puzzle,\nyou should knock and go in. After all, it’s a tough one, and you did it!\n\n\t\t\t\tYou have a fox, a goose, and a bag of beans. You need to cross a river with them, but the boat can only carry you and one item at a time.\n\t\t\t\tIf left alone together, the fox will eat the goose, and the goose will eat the beans.\n\t\t\t\tHow can you get them all across safely?\n"
     },
     {
       "name":"back door" ,
       "prompt":"What's the code? ",
       "loc": 2,
-      "win": "door unlocked and you ran toward your college.",
+      "win": "\ndoor unlocked and you ran toward your college.\n",
       "next_loc": 1,
       "lose": "Wrong code!",
       "answer":["3843"],
-      "dialogue": "\"You need to figure out the 4-digit code to unlock the door. The clues written behind the door are:\\n\"\n                \"1.The code is made up of four digits.\\n\"\n                \"2.The second number is greater than the first\\n\"\n                \"3.The sum of all digits is 18.\\n\"\n                \"4.The third number is half the second digit.\\n\"\n                \"5.The fourth number is one less than the third.\""
+      "dialogue": "\nYou need to figure out the 4-digit code to unlock the door. The clues written behind the door are:\n\t\t\t\t1.The code is made up of four digits.\n\t\t\t\t2.The second number is greater than the first\n\t\t\t\t3.The sum of all digits is 18.\n\t\t\t\t4.The third number is half the second digit.\n\t\t\t\t5.The fourth number is one less than the third.\n"
 
     },
     {
       "name":"fake blackjack" ,
-      "prompt":"Oh, nice! You really did that?! Looks like you don’t have social anxiety anymore!\n This is a variation of Blackjack. You receive random numbers when you hit.\n You win if you reach 21 or if your friend has a lower total than you. Anyone who exceeds 21 loses.",
+      "prompt":"\nOh, nice! You really did that?! Looks like you don’t have social anxiety anymore!\n\nThis is a variation of Blackjack. You receive random numbers when you hit.\n You win if you reach 21 or if your friend has a lower total than you. Anyone who exceeds 21 loses.\n",
       "loc": 24,
       "win": "",
       "next_loc": 30,
       "lose": "",
       "answer":[],
-      "dialogue": "Your friend said you’re a good friend! They mentioned knowing a secret door in this room and want you to go in for a surprise!"
+      "dialogue": "\nYour friend said you’re a good friend! They mentioned knowing a secret door in this room and want you\nto go in for a surprise!\n"
 
     },
     {
@@ -336,9 +335,9 @@
       "loc": 30,
       "win": "",
       "next_loc": 24,
-      "lose": "You've already claimed this offer!",
+      "lose": "\nYou've already claimed this offer!\n",
       "answer":[],
-      "dialogue": "You now have extra moves"
+      "dialogue": "\nYou now have extra moves\n"
 
     }
   ]
