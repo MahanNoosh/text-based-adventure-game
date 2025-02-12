@@ -337,13 +337,15 @@ if __name__ == "__main__":
             elif choice == "look":
                 location.visited = False
             elif choice == "score":
-                print(f"You currently have {game.score}/{WIN_SCORE} score")
+                print(f"- You currently have {game.score}/{WIN_SCORE} score")
             elif choice == "quit":
                 game.ongoing = False
             elif choice == "inventory":
+                if len(game.inventory) == 0:
+                    print("- You have no item in your inventory")
                 for item in game.inventory:
                     inventory_item = game.get_item(item)
-                    print(f"{inventory_item.name} - {inventory_item.description}")
+                    print(f"- {inventory_item.name}:\t\t{inventory_item.description}")
             elif choice == "undo":
                 if game_log.last.prev is None:
                     break

@@ -238,28 +238,28 @@
   "items": [
     {
       "name": "cellphone",
-      "description": "\tYou can use your phone to make calls!\n",
+      "description": "You can use your phone to make calls!\n",
       "start_position": 7,
       "target_position": 19,
       "target_points": 1
     },
     {
       "name": "USB drive",
-      "description": "\the only copy of your game, because of course you forgot to back it up\n",
+      "description": "he only copy of your game, because of course you forgot to back it up\n",
       "start_position": 4,
       "target_position": 7,
       "target_points": 1
     },
     {
       "name": "lucky mug",
-      "description": "\tThis is your lucky mug!!! you can't do anything without it!!!!\n",
+      "description": "This is your lucky mug!!! you can't do anything without it!!!!\n",
       "start_position": 19,
       "target_position": 7,
       "target_points": 17
     },
     {
       "name": "laptop charger",
-      "description": "\tyour battery is 5%, you need it to charge your laptop.\n",
+      "description": "your battery is 5%, you need it to charge your laptop.\n",
       "start_position": 24,
       "target_position": 7,
       "target_points": 1
