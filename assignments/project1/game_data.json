@@ -264,5 +264,66 @@
       "target_position": 7,
       "target_points": 5
     }
+  ],
+  "puzzles": [
+    {
+      "name":"submit project" ,
+      "prompt":"",
+      "win":{
+        "text": "Nice, you submitted it with two minutes to spare!",
+        "next_loc":7
+      },
+      "lose": "You don’t have the required items to submit your project.",
+      "answer":[],
+      "dialogue": ""
+    },
+    {
+      "name":"call reception" ,
+      "prompt":"dial phone number: ",
+      "win":
+      {"text": "They said you left it in the bathroom cabinet. OH! \n You use it while brushing your teeth to save water. That makes sense!",
+        "next_loc": 19
+      },
+      "lose": "Wait, who is this? Sorry, wrong number.",
+      "answer":["4169784500"],
+      "dialogue": "You don’t have your phone on you, how can you call them?"
+
+    },
+    {
+      "name":"unlock computer" ,
+      "prompt":"Enter the password: ",
+      "win": {
+        "text":"Nice! Thank God you found the password!",
+        "next_loc": 4
+      },
+      "lose": "Oh no, the password is wrong!",
+      "answer":["62759709"],
+      "dialogue": "",
+
+    },
+    {
+      "name":"social anxiety" ,
+      "prompt":"Enter what you take to the other side in order and space seperated (fox, goose, beans, alone):",
+      "win":{
+        "text": "goose alone fox goose beans alone goose",
+        "next_loc": 24
+      },
+      "lose": "",
+      "answer":["goose alone fox goose beans alone goose","goose alone beans goose fox alone goose"],
+      "dialogue": "You don't have the confidence to get in the room! So, let’s make a bet: if you solve this puzzle, \"\n                \"you should knock and go in. After all, it’s a tough one, and you did it! You have a fox, a goose, and a bag of beans. You need to cross a river with them, \"\n                \"but the boat can only carry you and one item at a time.\\n\"\n                \"If left alone together, the fox will eat the goose, and the goose will eat the beans. \"\n                \"How can you get them all across safely?"
+
+    },
+    {
+      "name":"backdoor" ,
+      "prompt":"What's the code?",
+      "win":{
+        "text": "door unlocked and you ran toward your college.",
+        "next_loc": 1
+      },
+      "lose": "Wrong code!",
+      "answer":["3843"],
+      "dialogue": "\"You need to figure out the 4-digit code to unlock the door. The clues written behind the door are:\\n\"\n                \"1.The code is made up of four digits.\\n\"\n                \"2.The second number is greater than the first\\n\"\n                \"3.The sum of all digits is 18.\\n\"\n                \"4.The third number is half the second digit.\\n\"\n                \"5.The fourth number is one less than the third.\""
+
+    }
   ]
 }

@@ -22,8 +22,7 @@ import json
 import random
 from typing import Optional
 
-
-from game_entities import Location, Item
+from game_entities import Location, Item, Puzzle
 from proj1_event_logger import Event, EventList
 
 
@@ -49,6 +48,7 @@ class AdventureGame:
 
     _locations: dict[int, Location]
     _items: dict[str, Item]
+    _puzzles: dict[str, Puzzle]
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
 
@@ -70,14 +70,15 @@ class AdventureGame:
         # 2. Make sure the Item class is used to represent each item.
 
         # Suggested helper method (you can remove and load these differently if you wish to do so):
-        self._locations, self._items = self._load_game_data(game_data_file)
+        self._locations, self._items, self._puzzles = self._load_game_data(game_data_file)
+        print(self._puzzles)
 
         # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
 
     @staticmethod
-    def _load_game_data(filename: str) -> tuple[dict[int, Location], dict[str, Item]]:
+    def _load_game_data(filename: str) -> tuple[dict[int, Location], dict[str, Item], dict[str, Puzzle]]:
         """Load locations and items from a JSON file with the given filename and
         return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
         and (2) a list of all Item objects."""
@@ -96,8 +97,12 @@ class AdventureGame:
             item_obj = Item(item_data['name'], item_data['description'], item_data['start_position'],
                             item_data['target_position'], item_data['target_points'])
             items[item_data['name']] = item_obj
-
-        return locations, items
+        puzzles = {}
+        for puzzle_data in data['puzzles']:  # Go through each element associated with the 'items' key in the file
+            puzzle_obj = Puzzle(puzzle_data['name'], puzzle_data['prompt'], puzzle_data['win'],
+                                puzzle_data['lose'], puzzle_data['answer'], puzzle_data['dialogue'])
+            puzzles[puzzle_data['win']['next_loc']] = puzzle_obj
+        return locations, items, puzzles
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
         """Return Location object associated with the provided location ID.
@@ -114,6 +119,14 @@ class AdventureGame:
 
         if item_name is not None:
             return self._items[item_name]
+
+    def get_puzzle(self, puzzle_id) -> Puzzle:
+        """
+         Return the puzzle with the given name from the list of available puzzles.
+        """
+
+        if puzzle_id in self._puzzles:
+            return self._puzzles[puzzle_id]
 
 
 if __name__ == "__main__":
@@ -175,7 +188,7 @@ if __name__ == "__main__":
             helper for submit project event
             """
             if "USB drive" in inventory and "laptop charger" in inventory and "lucky mug" in inventory:
-                print("Nice, you submitted it with two minutes to spare!")
+                print()
             else:
                 print("You don’t have the required items to submit your project.")
 
