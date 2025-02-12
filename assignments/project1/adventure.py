@@ -177,7 +177,7 @@ if __name__ == "__main__":
         helper for call reception event.
         """
         puzzle = game.get_puzzle(game.current_location_id)
-        if "cellphone" in game.inventory:
+        if game.get_item("cellphone") in game.inventory:
             number = input(puzzle.prompt).strip().replace("-", "")
             if number in puzzle.answer:
                 print(puzzle.win)
