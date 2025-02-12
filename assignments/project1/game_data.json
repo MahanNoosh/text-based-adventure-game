@@ -122,7 +122,7 @@
       "id": 4,
       "name": "Print Area",
       "brief_description": "\n\tYou are at the Print Area. To the West, you can use stairs to Backdoor. To the South, you\ncan return to the Second Floor Common Area.\n",
-      "long_description": "\n\tYou are at the Print Area, a busy section of the library where students rush to collect their\nfreshly printed notes and assignments. The air smells faintly of ink and warm paper, and the steady\nhum of printers fills the background. On one of the desks, you spot your laptop, left open but\nlocked. Relief washes over you—this means your USB drive is still plugged in. But there’s\na problem: you need to unlock your computer first before you can safely eject it. To the West, you\ncan use stairs to Backdoor . To the South, you can return to\nthe Second Floor Common Area.\n",
+      "long_description": "\n\tYou are at the Print Area, a busy section of the library where students rush to collect their\nfreshly printed notes and assignments. The air smells faintly of ink and warm paper, and the steady\nhum of printers fills the background. On one of the desks, you spot your USB drive, connected to a computer but\nlocked. Relief washes over you—this means your USB drive is still plugged in. But there’s\na problem: you need to unlock your computer first before you can safely eject it. You don't want to lose your\nonly project copy! To the West, you can use stairs to Backdoor . To the South, you can return to\nthe Second Floor Common Area.\n",
       "available_commands": {
         "go west": 3,
         "go south": 10,

@@ -146,14 +146,14 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 120,
-        'disable': ['R1705', 'E9998', 'E9999']
-    })
+    # import python_ta
+    # python_ta.check_all(config={
+    #     'max-line-length': 120,
+    #     'disable': ['R1705', 'E9998', 'E9999']
+    # })
 
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
-    game = AdventureGame('game_data.json', 24)  # load data, setting initial location ID to 7
+    game = AdventureGame('game_data.json', 7)  # load data, setting initial location ID to 7
     menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
     WIN_SCORE = 20
     MAX_MOVES = 25
