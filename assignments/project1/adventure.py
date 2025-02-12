@@ -34,11 +34,9 @@ class AdventureGame:
         - ongoing: saves if the game is running.
         - inventory: inventory of player in game
         - score: score of player in game
-        - moves: remaining moves of player in game
     Representation Invariants:
         - len(_locations) > 0
         - len(_items) > 0
-        - moves >= 0
         - score >= 0
     """
     # Private Instance Attributes:
@@ -48,9 +46,8 @@ class AdventureGame:
     _locations: dict[int, Location]
     _items: dict[str, Item]
     _puzzles: dict[int, Puzzle]
-    inventory = list
-    score = int
-    moves = int
+    inventory: list[str]
+    score: int
     current_location_id: int
     ongoing: bool
 
@@ -68,7 +65,6 @@ class AdventureGame:
         self.ongoing = True
         self.inventory = []
         self.score = 0
-        self.moves = 0
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], dict[str, Item], dict[int, Puzzle]]:
@@ -82,7 +78,7 @@ class AdventureGame:
         locations = {}
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
             location_obj = Location(loc_data['id'], loc_data['brief_description'], loc_data['long_description'],
-                                    loc_data['available_commands'], loc_data['items'])
+                                    loc_data['available_commands'], loc_data['items'], False)
             locations[loc_data['id']] = location_obj
 
         items = {}
@@ -92,7 +88,7 @@ class AdventureGame:
             items[item_data['name']] = item_obj
         puzzles = {}
         for puzzle_data in data['puzzles']:  # Go through each element associated with the 'puzzles' key in the file
-            puzzle_obj = Puzzle(puzzle_data['name'], puzzle_data['prompt'], puzzle_data['loc'], puzzle_data['win'],
+            puzzle_obj = Puzzle(puzzle_data['prompt'], puzzle_data['loc'], puzzle_data['win'],
                                 puzzle_data['next_loc'], puzzle_data['lose'], puzzle_data['answer'],
                                 puzzle_data['dialogue'])
             puzzles[puzzle_data['loc']] = puzzle_obj
@@ -107,20 +103,22 @@ class AdventureGame:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
 
-    def get_item(self, item_name: str) -> Item:
+    def get_item(self, item_name: str) -> Item | None:
         """Return Item object associated with the provided Item name.
                 """
 
         if item_name in self._items:
             return self._items[item_name]
+        return None
 
-    def get_puzzle(self, puzzle_id: int) -> Puzzle:
+    def get_puzzle(self, puzzle_id: int) -> Puzzle | None:
         """
          Return the puzzle with the given loc id from the list of available puzzles.
         """
 
         if puzzle_id in self._puzzles:
             return self._puzzles[puzzle_id]
+        return None
 
     def pickup_item(self, new_item: str) -> bool:
         """
@@ -131,13 +129,6 @@ class AdventureGame:
             self.inventory.append(new_item)
             return True
         return False
-
-    def set_moves(self, value: int) -> None:
-        """
-        sets remaining moves of player
-        """
-
-        self.moves = value
 
     def update_score(self) -> None:
         """
@@ -165,7 +156,7 @@ if __name__ == "__main__":
     menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
     WIN_SCORE = 20
     MAX_MOVES = 25
-    game.set_moves(MAX_MOVES)
+    moves_remaining = MAX_MOVES
     claimed_bonus = False
     choice = None
 
@@ -197,7 +188,6 @@ if __name__ == "__main__":
         else:
             print(puzzle.dialogue)
 
-
     def unlock_computer() -> None:
         """
         helper for unlock computer event.
@@ -209,7 +199,6 @@ if __name__ == "__main__":
             print(puzzle.win)
         else:
             print(puzzle.lose)
-
 
     def social_anxiety() -> None:
         """
@@ -279,7 +268,6 @@ if __name__ == "__main__":
         print(puzzle.dialogue)
         game.current_location_id = puzzle.next_loc
 
-
     def backdoor() -> None:
         """
         helper for the use backdoor event
@@ -293,21 +281,21 @@ if __name__ == "__main__":
         else:
             print(puzzle.lose)
 
-    def extra_moves(already_claimed_bonus) -> bool:
+    def extra_moves(already_claimed_bonus: bool, moves: int) -> tuple[bool, int]:
         """
         adds 10 extra moves to player moves after doing some puzzles in game
         """
         puzzle = game.get_puzzle(game.current_location_id)
         if not already_claimed_bonus:
-            game.moves += 10
+            moves += 10
             already_claimed_bonus = True
             game.current_location_id = puzzle.next_loc
         else:
             print(puzzle.lose)
-        return already_claimed_bonus
+        return already_claimed_bonus, moves
 
     while game.ongoing:
-        if game.moves == 0:
+        if moves_remaining == 0:
             print("You lose :(")
             game.ongoing = False
         location = game.get_location()
@@ -318,9 +306,8 @@ if __name__ == "__main__":
 
         if (game_log.last.prev and game_log.last.prev.id_num != game_log.last.id_num
                 and choice not in ("get 10 extra moves", "play with them") and choice not in menu):
-            game.moves -= 1
+            moves_remaining -= 1
 
-        location_description = ""
         if location.visited:
             location_description = location.brief_description
         else:
@@ -336,7 +323,7 @@ if __name__ == "__main__":
             print("-", action)
 
         # Validate choice
-        choice = input(f"\nEnter action (you have {game.moves} moves remaining): ").lower().strip()
+        choice = input(f"\nEnter action (you have {moves_remaining} moves remaining): ").lower().strip()
         while choice not in location.available_commands and choice not in menu:
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
@@ -365,7 +352,7 @@ if __name__ == "__main__":
                 game_log.remove_last_event()
                 game.current_location_id = game_log.last.id_num
                 if game_log.last.prev and game_log.last.id_num != game_log.last.prev.id_num:
-                    game.moves += 1
+                    moves_remaining += 1
 
         else:
             result = location.available_commands[choice]
@@ -388,6 +375,8 @@ if __name__ == "__main__":
             elif choice == "play with them":
                 play_with_them()
             elif choice == "get 10 extra moves":
-                claimed_bonus = extra_moves(claimed_bonus)
+                updates = extra_moves(claimed_bonus, moves_remaining)
+                claimed_bonus = updates[0]
+                moves_remaining = updates[1]
             elif choice == "use back door":
                 backdoor()

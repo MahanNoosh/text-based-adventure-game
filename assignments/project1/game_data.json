@@ -169,7 +169,7 @@
       "id": 11,
       "name": "Stairs to Third Floor",
       "brief_description": "\n\tYou are at the Stairs to the Third Floor. To the East, you can enter the Third Floor Common\nRoom. To the West, you can return to the Second Floor Common Area.\n",
-      "long_description": "\n\tYou are at the Stairs to the Third Floor. Nothing special here—just a quiet stairwell with a\nfew students passing by, heading up or down between floors. The walls are bare except for a few\noutdated posters pinned to a notice board. To the East, you can enter the Third Floor Common Room. To the\nWest, you can return to the Second Floor Common Area.\n",
+      "long_description": "\n\tYou are at the Stairs to the Third Floor. Nothing special here—just a quiet stairwell with a\nfew students passing by, heading up or down between floors. The walls are bare except for a few\noutdated posters pinned to a notice board. To the East, you can enter the Third Floor Common Room.\nTo the West, you can return to the Second Floor Common Area.\n",
       "available_commands": {
         "go east": 12,
         "go west": 10
@@ -202,7 +202,7 @@
       "id": 24,
       "name": "Study Room",
       "brief_description": "\n\tYou are at the Study Room. To the West, you can take the stairs up to the Fourth Floor. To\nthe North, you can return to the Lost and Found.\n",
-      "long_description": "\n\tYou are at the Study Room, a small, enclosed space meant for quiet, focused work. The walls\nare lined with whiteboards covered in scribbled equations and half-finished notes. A single overhead\nlight casts a dim glow over the desk in the center of the room. Someone is already here, hunched over\ntheir laptop, completely absorbed in their work. You freeze. Your laptop charger is somewhere in this\nroom—you’re sure of it—but the thought of interrupting them makes your chest tighten. What\nif they get annoyed? What if they give you a weird look? To the West, you can take the stairs up to\nthe Fourth Floor. To the North, you can return to the Lost and Found.\n",
+      "long_description": "\n\tYou are at the Study Room, a small, enclosed space meant for quiet, focused work. The walls\nare lined with whiteboards covered in scribbled equations and half-finished notes. A single overhead\nlight casts a dim glow over the desk in the center of the room. Someone is already here, hunched over\ntheir laptop, completely absorbed in their work. You freeze. Your laptop charger is somewhere in this\nroom—you’re sure of it—but the thought of interrupting them makes your chest tighten. What\nif they get annoyed? What if they give you a weird look? But, he sundenly suggest you to play with them.\n Wait What!? To the West, you can take the stairs up to the Fourth Floor. To the North, you can return to the Lost and Found.\n",
       "available_commands": {
         "go west": 23,
         "go north": 18,
@@ -227,7 +227,7 @@
       "id": 30,
       "name": "???",
       "brief_description": "\n\tYou find yourself in a Secret Room. To the North, you can go back to the study room.\n",
-      "long_description": "\n\tYou find yourself in a Secret Room, hidden away from the usual corridors of the library and\ndorms. The space is dimly lit, with shelves full of dusty old books and strange artifacts. In the center\nof the room, perched on a small rug, sits a magical capybara. It looks up at you with intelligent eyes and gives a slight nod.\n\"Ah, I see you've found me,\" it says, its voice surprisingly clear and soothing.\n\"I have the power to grant you something that could help you on your quest...\nI can give you an extra 10 moves. But be careful, as time can be a fickle thing.\"The capybara\nlooks at you expectantly, awaiting your decision. To the North, you can go back to the study room.\n",
+      "long_description": "\n\tYou find yourself in a Secret Room, hidden away from the usual corridors of the library and\ndorms. The space is dimly lit, with shelves full of dusty old books and strange artifacts. In the center\nof the room, perched on a small rug, sits a magical capybara. It looks up at you with intelligent eyes and gives\na slight nod. \"Ah, I see you've found me,\" it says, its voice surprisingly clear and soothing.\"I have the power to grant you something\n that could help you on your quest...\nI can give you an extra 10 moves. But be careful, as time can be a fickle thing.\"The capybara\nlooks at you expectantly, awaiting your decision. To the North, you can go back to the study room.\n",
       "available_commands": {
         "go north": 24,
         "get 10 extra moves": 30
@@ -299,7 +299,7 @@
     },
     {
       "name":"social anxiety" ,
-      "prompt":"\nEnter what you take to the other side in order and space seperated (fox, goose, beans, alone): ",
+      "prompt":"Enter what you take to the other side in order and space seperated (fox, goose, beans, alone): ",
       "loc": 18,
       "win": "\nNice! See? You should be more confident.\n",
       "next_loc": 24,
@@ -320,7 +320,7 @@
     },
     {
       "name":"fake blackjack" ,
-      "prompt":"\nOh, nice! You really did that?! Looks like you don’t have social anxiety anymore!\n\nThis is a variation of Blackjack. You receive random numbers when you hit.\n You win if you reach 21 or if your friend has a lower total than you. Anyone who exceeds 21 loses.\n",
+      "prompt":"\nOh, nice! You really did that?! Looks like you don’t have social anxiety anymore!\n\n\t\tThis is a variation of Blackjack. You receive random numbers when you hit.\nYou win if you reach 21 or if your friend has a lower total than you. Anyone who exceeds 21 loses.\n",
       "loc": 24,
       "win": "",
       "next_loc": 30,

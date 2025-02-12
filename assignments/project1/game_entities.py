@@ -39,19 +39,12 @@ class Location:
         -long_description != ""
         -len(available_commands) > 0
     """
-
-    def __init__(self, location_id, brief_description, long_description, available_commands, items,
-                 visited=False) -> None:
-        """
-        Initialize a new location.
-        """
-
-        self.id_num = location_id
-        self.brief_description = brief_description
-        self.long_description = long_description
-        self.available_commands = available_commands
-        self.items = items
-        self.visited = visited
+    id_num: int
+    brief_description: str
+    long_description: str
+    available_commands: dict[str, int]
+    items: list[str]
+    visited: bool
 
 
 @dataclass
@@ -63,7 +56,7 @@ class Item:
         - description: a string describing the item.
         - start_position: an integer representing the starting location ID of the item.
         - target_position:an integer represnting the target location ID of the item( where it will be delivered to).
-        - target_points: an integer represinting how many points a player will be awarded when item reaches target_position.
+        - target_points: an integer showing how many points a player will be awarded when item reaches target_position.
 
     Representation Invariants:
         - name != ''
@@ -86,7 +79,6 @@ class Puzzle:
     A puzzle in our text adventure game.
 
     Instance Attributes:
-        - name: string representing the name of the puzzle.
         - prompt: string representing prompt of the puzzle.
         - loc: location id that the puzzle is located
         - win: text shown when puzzle is won.
@@ -101,7 +93,6 @@ class Puzzle:
 
     """
 
-    name: str
     prompt: str
     loc: int
     win: str
@@ -110,33 +101,13 @@ class Puzzle:
     answer: list
     dialogue: str
 
-    def __init__(self, name, prompt, loc, win, next_loc, lose, answer, dialogue) -> None:
-        """
-        Initialize a new puzzle.
-        """
-
-        self.name = name
-        self.prompt = prompt
-        self.loc = loc
-        self.win = win
-        self.next_loc = next_loc
-        self.lose = lose
-        self.answer = answer
-        self.dialogue = dialogue
-
-
-# Note: Other entities you may want to add, depending on your game plan:
-# - Puzzle class to represent special locations (could inherit from Location class if it seems suitable)
-# - Player class
-# etc.
 
 if __name__ == "__main__":
-    pass
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })

@@ -122,11 +122,10 @@ if __name__ == "__main__":
                        "submit project"]
     expected_log = [7, 7, 13, 19, 19, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12,
                     18, 18, 24, 24, 18, 12, 11, 10, 4, 4, 4, 3, 2, 2, 1, 7, 7]
-    # Uncomment the line below to test your walkthrough
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, win_walkthrough).get_id_log())
 
-    # Create a list of all the commands needed to walk through your game to reach a 'game over' state
+    sim = AdventureGameSimulation('game_data.json', 7, win_walkthrough)
+    assert expected_log == sim.get_id_log()
+
     lose_demo = ["pickup cellphone", "go south", "go south", "call reciption", "4169784500", "go south",
                  "go east", "go east", "go north", "go north", "go east", "go north", "go east", "go east",
                  "go south", "face social anxiety and enter", "goose alone fox goose beans alone goose",
@@ -135,44 +134,42 @@ if __name__ == "__main__":
                  "go west"]
     expected_log = [7, 7, 13, 19, 19, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18,
                     18, 24, 24, 18, 12, 11, 10, 4, 4, 4, 10, 16, 15, 21, 27, 26]
-    # Uncomment the line below to test your demo
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, lose_demo).get_id_log())
+    sim = AdventureGameSimulation('game_data.json', 7, lose_demo)
+    assert expected_log == sim.get_id_log()
 
     inventory_demo = ["inventory", "pickup cellphone", "inventory", "undo", "inventory"]
     expected_log = [7, 7]
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, inventory_demo).get_id_log())
+    sim = AdventureGameSimulation('game_data.json', 7, inventory_demo)
+    assert expected_log == sim.get_id_log()
 
     scores_demo = ["score", "pickup cellphone", "go south", "go south", "call reciption", "4169784500", "score"]
     expected_log = [7, 7, 13, 19, 19, 19]
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, scores_demo).get_id_log())
-    #
-    # Add more enhancement_demos if you have more enhancements
+    sim = AdventureGameSimulation('game_data.json', 7, scores_demo)
+    assert expected_log == sim.get_id_log()
+
     enhancement1_demo = ["pickup cellphone", "go south", "go south", "call reciption", "4169784500"]
     expected_log = [7, 7, 13, 19, 19, 19]
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, enhancement1_demo).get_id_log())
+    sim = AdventureGameSimulation('game_data.json', 7, enhancement1_demo)
+    assert expected_log == sim.get_id_log()
 
     enhancement2_demo = ["go south", "go south", "go south", "go east", "go east", "go north", "go north", "go east",
                          "go north", "go north", "unlock the computer", "62759709"]
     expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 4, 4, 4,]
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, enhancement2_demo).get_id_log())
+    sim = AdventureGameSimulation('game_data.json', 7, enhancement2_demo)
+    assert expected_log == sim.get_id_log()
 
     enhancement3_demo = ["go south", "go south", "go south", "go east", "go east", "go north", "go north", "go east",
                          "go north", "go east", "go east", "go south", "face social anxiety and enter",
                          "goose alone fox goose beans alone goose"]
     expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18, 18, 24]
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, enhancement3_demo).get_id_log())
+    sim = AdventureGameSimulation('game_data.json', 7, enhancement3_demo)
+    assert expected_log == sim.get_id_log()
 
     enhancement4_demo = ["go south", "go south", "go south", "go east", "go east", "go north", "go north", "go east",
                          "go north", "go east", "go east", "go south", "face social anxiety and enter",
                          "goose alone fox goose beans alone goose", "play with them", "hit", "stand", "n",
                          "get 10 extra moves"]
     expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18, 18, 24, 24, 30, 24]
-    assert (expected_log ==
-            AdventureGameSimulation('game_data.json', 7, enhancement4_demo).get_id_log())
+    sim = AdventureGameSimulation('game_data.json', 7, enhancement4_demo)
+    assert expected_log == sim.get_id_log()
     # Note: You can add more code below for your own testing purposes
