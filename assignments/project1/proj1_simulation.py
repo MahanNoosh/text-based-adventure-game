@@ -35,7 +35,7 @@ class AdventureGameSimulation:
     _game: AdventureGame
     _events: EventList
 
-    def __init__(self, game_data_file: str, initial_location_id: int, commands: list[str]) -> None:
+    def __init__(self, game_data_file: str, initial_location_id: int, commands: list[str | bool]) -> None:
         """Initialize a new game simulation based on the given game data, that runs through the given commands.
 
         Preconditions:
@@ -49,7 +49,7 @@ class AdventureGameSimulation:
         self._events.add_event(e)
         self.generate_events(commands, loc)
 
-    def generate_events(self, commands: list[str], current_location: Location) -> None:
+    def generate_events(self, commands: list[str | bool], current_location: Location) -> None:
         """Generate all events in this simulation.
 
         Preconditions:
@@ -58,11 +58,13 @@ class AdventureGameSimulation:
         """
 
         for command in commands:
-            loc = self._game.get_location()
-            if command is True:
-                puzzle = self._game.get_puzzle(loc)
-                loc = puzzle.win['next_loc']
-            elif command is str:
+            if command in ("look", "inventory", "score", "undo", "log", "quit", "hit", "stand"):
+                continue
+            if command in ("4169784500", "goose alone fox goose beans alone goose", "62759709", "3843",
+                           "get 10 extra moves", "y", "n"):
+                puzzle = self._game.get_puzzle(current_location.id_num)
+                loc = self._game.get_location(puzzle.next_loc)
+            else:
                 loc = self._game.get_location(current_location.available_commands[command])
             e = Event(loc.id_num, loc.long_description)
             self._events.add_event(e, command)
@@ -79,7 +81,11 @@ class AdventureGameSimulation:
 
         >>> sim = AdventureGameSimulation('game_data.json', 4, ["unlock the computer", True, "go west"])
         >>> sim.get_id_log()
-        [4, 4, 3]
+        [4, 4, 4, 3]
+
+        >>> sim = AdventureGameSimulation('game_data.json', 2, ["use back door", True, "go south"])
+        >>> sim.get_id_log()
+        [2, 2, 1, 7]
         """
 
         return self._events.get_id_log()
@@ -108,36 +114,65 @@ if __name__ == "__main__":
     #     'disable': ['R1705', 'E9998', 'E9999']
     # })
 
-    # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
-    win_walkthrough = ["pickup cellphone", "go south", "go south", "call reciption", True, "go south",
+    win_walkthrough = ["pickup cellphone", "go south", "go south", "call reciption", "4169784500", "go south",
                        "go east", "go east", "go north", "go north", "go east", "go north", "go east", "go east",
-                       "go south", "face social anxiety and enter", True, "pickup laptop charger", "go north",
-                       "go north", "go west", "go west", "go north", "unlock the computer", True, "go west", "go west",
-                       "use back door", True, "go south", "submit project"]  # Create a list of all the commands needed to walk through your game to win it
-    expected_log = [7, 7, 13, 19, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18, 18, 24, 18, 12, 11, 10, 4, 4, 3, 2, 1, 7]  # Update this log list to include the IDs of all locations that would be visited
+                       "go south", "face social anxiety and enter", "goose alone fox goose beans alone goose",
+                       "pickup laptop charger", "go north", "go north", "go west", "go west", "go north",
+                       "unlock the computer", "62759709", "go west", "go west", "use back door", "3843", "go south",
+                       "submit project"]
+    expected_log = [7, 7, 13, 19, 19, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12,
+                    18, 18, 24, 24, 18, 12, 11, 10, 4, 4, 4, 3, 2, 2, 1, 7, 7]
     # Uncomment the line below to test your walkthrough
-    assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough)
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, win_walkthrough).get_id_log())
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
-    lose_demo = []
-    expected_log = []  # Update this log list to include the IDs of all locations that would be visited
+    lose_demo = ["pickup cellphone", "go south", "go south", "call reciption", "4169784500", "go south",
+                 "go east", "go east", "go north", "go north", "go east", "go north", "go east", "go east",
+                 "go south", "face social anxiety and enter", "goose alone fox goose beans alone goose",
+                 "pickup laptop charger", "go north", "go north", "go west", "go west", "go north",
+                 "unlock the computer", "62759709", "go south", "go south", "go west", "go south", "go south",
+                 "go west"]
+    expected_log = [7, 7, 13, 19, 19, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18,
+                    18, 24, 24, 18, 12, 11, 10, 4, 4, 4, 10, 16, 15, 21, 27, 26]
     # Uncomment the line below to test your demo
-    assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo)
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, lose_demo).get_id_log())
 
-    # TODO: Add code below to provide walkthroughs that show off certain features of the game
-    # TODO: Create a list of commands involving visiting locations, picking up items, and then
-    #   checking the inventory, your list must include the "inventory" command at least once
-    # inventory_demo = [..., "inventory", ...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    inventory_demo = ["inventory", "pickup cellphone", "inventory", "undo", "inventory"]
+    expected_log = [7, 7]
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, inventory_demo).get_id_log())
 
-    # scores_demo = [..., "score", ...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
-
+    scores_demo = ["score", "pickup cellphone", "go south", "go south", "call reciption", "4169784500", "score"]
+    expected_log = [7, 7, 13, 19, 19, 19]
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, scores_demo).get_id_log())
+    #
     # Add more enhancement_demos if you have more enhancements
-    # enhancement1_demo = [...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    enhancement1_demo = ["pickup cellphone", "go south", "go south", "call reciption", "4169784500"]
+    expected_log = [7, 7, 13, 19, 19, 19]
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, enhancement1_demo).get_id_log())
 
+    enhancement2_demo = ["go south", "go south", "go south", "go east", "go east", "go north", "go north", "go east",
+                         "go north", "go north", "unlock the computer", "62759709"]
+    expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 4, 4, 4,]
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, enhancement2_demo).get_id_log())
+
+    enhancement3_demo = ["go south", "go south", "go south", "go east", "go east", "go north", "go north", "go east",
+                         "go north", "go east", "go east", "go south", "face social anxiety and enter",
+                         "goose alone fox goose beans alone goose"]
+    expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18, 18, 24]
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, enhancement3_demo).get_id_log())
+
+    enhancement4_demo = ["go south", "go south", "go south", "go east", "go east", "go north", "go north", "go east",
+                         "go north", "go east", "go east", "go south", "face social anxiety and enter",
+                         "goose alone fox goose beans alone goose", "play with them", "hit", "stand", "n",
+                         "get 10 extra moves"]
+    expected_log = [7, 13, 19, 25, 26, 27, 21, 15, 16, 10, 11, 12, 18, 18, 24, 24, 30, 24]
+    assert (expected_log ==
+            AdventureGameSimulation('game_data.json', 7, enhancement4_demo).get_id_log())
     # Note: You can add more code below for your own testing purposes

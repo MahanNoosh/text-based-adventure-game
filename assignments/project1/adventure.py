@@ -32,6 +32,7 @@ class AdventureGame:
     Instance Attributes:
         - current_location_id: the id of location we are currently at.
         - ongoing: saves if the game is running.
+        - inventory: inventory of player in game
     Representation Invariants:
         - len(_locations) > 0
         - len(_items) > 0
@@ -43,6 +44,9 @@ class AdventureGame:
     _locations: dict[int, Location]
     _items: dict[str, Item]
     _puzzles: dict[int, Puzzle]
+    inventory = list
+    score = int
+    moves = int
     current_location_id: int
     ongoing: bool
 
@@ -65,11 +69,13 @@ class AdventureGame:
 
         # Suggested helper method (you can remove and load these differently if you wish to do so):
         self._locations, self._items, self._puzzles = self._load_game_data(game_data_file)
-        print(self._puzzles)
 
         # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
+        self.inventory = []
+        self.score = 0
+        self.moves = 0
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], dict[str, Item], dict[int, Puzzle]]:
@@ -92,10 +98,10 @@ class AdventureGame:
                             item_data['target_position'], item_data['target_points'])
             items[item_data['name']] = item_obj
         puzzles = {}
-        for puzzle_data in data['puzzles']:  # Go through each element associated with the 'items' key in the file
-            puzzle_obj = Puzzle(puzzle_data['name'], puzzle_data['prompt'], puzzle_data['win'],
-                                puzzle_data['lose'], puzzle_data['answer'], puzzle_data['dialogue'])
-            puzzles[puzzle_data['win']['next_loc']] = puzzle_obj
+        for puzzle_data in data['puzzles']:  # Go through each element associated with the 'puzzles' key in the file
+            puzzle_obj = Puzzle(puzzle_data['name'], puzzle_data['prompt'], puzzle_data['loc'], puzzle_data['win'],
+                                puzzle_data['next_loc'], puzzle_data['lose'], puzzle_data['answer'], puzzle_data['dialogue'])
+            puzzles[puzzle_data['loc']] = puzzle_obj
         return locations, items, puzzles
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
@@ -116,11 +122,37 @@ class AdventureGame:
 
     def get_puzzle(self, puzzle_id: int) -> Puzzle:
         """
-         Return the puzzle with the given name from the list of available puzzles.
+         Return the puzzle with the given loc id from the list of available puzzles.
         """
 
         if puzzle_id in self._puzzles:
             return self._puzzles[puzzle_id]
+
+    def pickup_item(self, new_item: str) -> bool:
+        """
+        adds item to player inventory if it doesn't already exist
+        """
+
+        if new_item not in self.inventory:
+            self.inventory.append(new_item)
+            return True
+        return False
+
+    def set_moves(self, value: int) -> None:
+        """
+        sets remaining moves of player
+        """
+
+        self.moves = value
+
+    def update_score(self) -> None:
+        """
+        updates score of player based on items in inventory
+        """
+
+        for item_in in self.inventory:
+            if game.current_location_id == self._items[item_in].target_position:
+                self.score += self._items[item_in].target_points
 
 
 if __name__ == "__main__":
@@ -137,126 +169,111 @@ if __name__ == "__main__":
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
     game = AdventureGame('game_data.json', 7)  # load data, setting initial location ID to 7
     menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
-    inventory = []
     WIN_SCORE = 20
-    score = 0
-    moves = 25
+    MAX_MOVES = 25
+    game.set_moves(MAX_MOVES)
     already_claimed_bonus = False
     choice = None
-
-    def update_score() -> None:
-        """
-        helper function to update score in game
-        """
-        global score
-        for item_in in inventory:
-            obj = game.get_item(item_in)
-            if game.current_location_id == obj.target_position:
-                score += obj.target_points
 
     def submit_project() -> None:
         """
         helper for submit project event
         """
-        update_score()
-        if score == WIN_SCORE:
-            print("Nice, you submitted it with two minutes to due!\n You win!")
+        game.update_score()
+        puzzle = game.get_puzzle(game.current_location_id)
+        if game.score == WIN_SCORE:
+            print(puzzle.win)
             game.ongoing = False
         else:
-            print("You don’t have the required items to submit your project.")
+            print(puzzle.lose)
 
     def call_recepton() -> None:
         """
         helper for call reception event.
         """
-        if "cellphone" in inventory:
-            number = input("dial phone number: ").replace("-", "")
-            if number == "4169784500":
-                print("They said you left it on the bathroom cabinet. OH! "
-                      "You use it while brushing your teeth to save water. That makes sense!")
-                inventory.append(location.items[0])
-                update_score()
+        puzzle = game.get_puzzle(game.current_location_id)
+        if "cellphone" in game.inventory:
+            number = input(puzzle.prompt).strip().replace("-", "")
+            if number in puzzle.answer:
+                print(puzzle.win)
+                game.pickup_item(location.items[0])
+                game.update_score()
             else:
-                print("Wait, who is this? Sorry, wrong number.")
+                print(puzzle.lose)
         else:
-            print("You don’t have your phone on you, how can you call them?")
+            print(puzzle.dialogue)
 
 
     def unlock_computer() -> None:
         """
         helper for unlock computer event.
         """
-        password = input("Enter the password: ")
-        if password == "62759709":
-            inventory.append(location.items[0])
-            print("Nice! Thank God you found the password!")
+        puzzle = game.get_puzzle(game.current_location_id)
+        password = input(puzzle.prompt)
+        if password in puzzle.answer:
+            game.pickup_item(location.items[0])
+            print(puzzle.win)
         else:
-            print("Oh no, the password is wrong!")
+            print(puzzle.lose)
 
 
     def social_anxiety() -> None:
         """
         helper method for face social anxiety and enter event
         """
-        print(
-            "You don't have the confidence to get in the room! So, let’s make a bet: if you solve this puzzle, "
-            "you should knock and go in. After all, it’s a tough one, and you did it!")
-        print(
-            "You have a fox, a goose, and a bag of beans. You need to cross a river with them, "
-            "but the boat can only carry you and one item at a time.\n"
-            "If left alone together, the fox will eat the goose, and the goose will eat the beans. "
-            "How can you get them all across safely?")
-        answer = input(
-            "Enter what you take to the other side in order and space seperated (fox, goose, beans, alone): ")
-        if answer in ("goose alone fox goose beans alone goose", "goose alone beans goose fox alone goose"):
-            print("Nice! See? You should be more confident.")
-            game.current_location_id = 24
+        puzzle = game.get_puzzle(game.current_location_id)
+        print(puzzle.dialogue)
+        answer = input(puzzle.prompt)
+        if answer in puzzle.answer:
+            print(puzzle.win)
+            game.current_location_id = puzzle.next_loc
         else:
-            print("I don’t think this is working. Did you enter it correctly?")
+            print(puzzle.lose)
 
+    def random_1_to_10() -> int:
+        """
+        returns a random number between 1 and 10 inclusive for fake black jack minigame
+        """
+        return int(1 + (random.random()) * 10)
 
     def play_with_them() -> None:
         """
-        helper for the play with them event
+        helper for the play with them event (fake blackjack)
         """
-        print("Oh, nice! You really did that?! Looks like you don’t have social anxiety anymore!")
-        print(
-            "This is a variation of Blackjack. You receive random numbers when you hit. "
-            "You win if you reach 21 or if your friend has a lower total than you. Anyone who exceeds 21 loses.")
+        puzzle = game.get_puzzle(game.current_location_id)
+        print(puzzle.prompt)
         playing = True
         while playing:
-            computer_numbers = [int(1 + (random.random()) * 9)]
-            player_numbers = [int(1 + (random.random()) * 9), int(1 + (random.random()) * 9)]
-            print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
-            print(f"your new friend first number is {computer_numbers}")
+            computer_numbers = [random_1_to_10()]
+            player_numbers = [random_1_to_10(), random_1_to_10()]
+            print(f"you have {player_numbers} which adds up to {sum(player_numbers)}\n"
+                  f"your new friend first number is {computer_numbers}")
             while True:
                 pick = input('if you wanna add another number say "hit" if not say "stand": ')
                 if pick == "hit":
-                    player_numbers.append(int(1 + (random.random()) * 9))
+                    player_numbers.append(random_1_to_10())
                     print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
                 elif pick == "stand":
-                    computer_numbers.append(int(1 + (random.random()) * 9))
+                    computer_numbers.append(random_1_to_10())
                     while sum(computer_numbers) <= 16:
-                        computer_numbers.append(int(1 + (random.random()) * 9))
+                        computer_numbers.append(random_1_to_10())
                     if sum(computer_numbers) > 21 or sum(player_numbers) >= sum(computer_numbers):
-                        print("you won!")
                         print(
+                            f"you won!\n"
                             f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} "
                             f"({sum(player_numbers)})")
                         break
                     else:
-                        print("your friend won!")
                         print(
+                            f"your friend won!\n"
                             f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} "
                             f"({sum(player_numbers)})")
                         break
                 if sum(player_numbers) > 21 and pick == "hit":
-                    print("your friend won")
-                    print(f"you had {player_numbers} ({sum(player_numbers)})")
+                    print(f"your friend won!\nyou had {player_numbers} ({sum(player_numbers)})")
                     break
                 elif sum(player_numbers) == 21 and pick == "hit":
-                    print("you won!")
-                    print(f"you had {player_numbers} (21)")
+                    print(f"you won!\nyou had {player_numbers} (21)")
                     break
             while True:
                 again = input("Play again? y/n: ")
@@ -265,32 +282,38 @@ if __name__ == "__main__":
                 elif again == "n":
                     playing = False
                     break
-        print(
-            "Your friend said you’re a good friend!"
-            " They mentioned knowing a secret door in this room and want you to go in for a surprise!")
-        game.current_location_id = 30
+        print(puzzle.dialogue)
+        game.current_location_id = puzzle.next_loc
 
 
     def backdoor() -> None:
         """
         helper for the use backdoor event
         """
-        print(
-            "You need to figure out the 4-digit code to unlock the door. The clues written behind the door are:\n"
-            "1.The code is made up of four digits.\n"
-            "2.The second number is greater than the first\n"
-            "3.The sum of all digits is 18.\n"
-            "4.The third number is half the second digit.\n"
-            "5.The fourth number is one less than the third.")
-        code = input("What's the code? ")
-        if code == "3843":
-            print("door unlocked and you ran toward your college.")
-            game.current_location_id = 1
+        puzzle = game.get_puzzle(game.current_location_id)
+        print(puzzle.dialogue)
+        code = input(puzzle.prompt)
+        if code in puzzle.answer:
+            print(puzzle.win)
+            game.current_location_id = puzzle.next_loc
         else:
-            print("Wrong code!")
+            print(puzzle.lose)
+
+    def extra_moves() -> None:
+        """
+        adds 10 extra moves to player moves after doing some puzzles in game
+        """
+        puzzle = game.get_puzzle(game.current_location_id)
+        global already_claimed_bonus
+        if not already_claimed_bonus:
+            game.moves += 10
+            already_claimed_bonus = True
+            game.current_location_id = puzzle.next_loc
+        else:
+            print(puzzle.lose)
 
     while game.ongoing:
-        if moves == 0:
+        if game.moves == 0:
             print("You lose :(")
             game.ongoing = False
         location = game.get_location()
@@ -300,8 +323,8 @@ if __name__ == "__main__":
             game_log.add_event(e, choice)
 
         if (game_log.last.prev and game_log.last.prev.id_num != game_log.last.id_num
-                and choice not in ("undo", "get 10 extra moves", "play with them")):
-            moves -= 1
+                and choice not in ("get 10 extra moves", "play with them") and choice not in menu):
+            game.moves -= 1
 
         location_description = ""
         if location.visited:
@@ -318,7 +341,7 @@ if __name__ == "__main__":
             print("-", action)
 
         # Validate choice
-        choice = input(f"\nEnter action (you have {moves} moves remaining): ").lower().strip()
+        choice = input(f"\nEnter action (you have {game.moves} moves remaining): ").lower().strip()
         while choice not in location.available_commands and choice not in menu:
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
@@ -331,33 +354,36 @@ if __name__ == "__main__":
             elif choice == "look":
                 print(location.long_description)
             elif choice == "score":
-                print(score)
+                print(game.score)
             elif choice == "quit":
                 game.ongoing = False
             elif choice == "inventory":
-                for item in inventory:
+                for item in game.inventory:
                     inventory_item = game.get_item(item)
                     print(f"{inventory_item.name} - {inventory_item.description}")
             elif choice == "undo":
-                if game_log.last.prev.next_command[:6] == "pickup":
-                    inventory.pop()
+                if game_log.last.prev is None:
+                    break
+                if game.inventory and game_log.last.prev.next_command[:6] == "pickup":
+                    game.inventory.pop()
                 game_log.remove_last_event()
                 game.current_location_id = game_log.last.id_num
-                moves += 1
+                if game_log.last.prev and game_log.last.id_num != game_log.last.prev.id_num:
+                    game.moves += 1
 
         else:
             result = location.available_commands[choice]
             game.current_location_id = result
             if choice[:6] == "pickup":
-                if location.items[0] not in inventory:
-                    inventory.append(location.items[0])
+                if location.items[0] not in game.inventory:
+                    game.inventory.append(location.items[0])
             elif choice == "submit project":
                 submit_project()
             elif choice == "call reciption":
                 call_recepton()
             elif choice == "unlock the computer":
                 unlock_computer()
-            elif choice == "enter robarts from backdoor":
+            elif choice == "enter robarts from back door":
                 print(
                     "The backdoor is locked. You knocked, but no one answered. Try entering through the front "
                     "door on St. George.")
@@ -366,9 +392,6 @@ if __name__ == "__main__":
             elif choice == "play with them":
                 play_with_them()
             elif choice == "get 10 extra moves":
-                if not already_claimed_bonus:
-                    moves += 10
-                    already_claimed_bonus = True
-                    game.current_location_id = 24
+                extra_moves()
             elif choice == "use back door":
                 backdoor()

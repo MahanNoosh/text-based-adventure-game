@@ -88,22 +88,41 @@ class Puzzle:
     Instance Attributes:
         - name: string representing the name of the puzzle.
         - prompt: string representing prompt of the puzzle.
-        - win: set for text shown when game is won.
-        -lose: string for text shown when game is lost.
-        -answer: a list representing the answer to the game.
-        -dialogue: string representing a dialogue in the puzzle
+        - loc: location id that the puzzle is located
+        - win: text shown when puzzle is won.
+        - next_loc: the next location this puzzle leads to.
+        - lose: string for text shown when game is lost.
+        - answer: a list representing the answer to the game.
+        - dialogue: string representing a dialogue in the puzzle
 
     Representation Invariants:
-        - name=!""
+        - loc > 0
+        - next_loc > 0
 
     """
 
     name: str
     prompt: str
-    win: set[str, str]
+    loc: int
+    win: str
+    next_loc: int
     lose: str
     answer: list
     dialogue: str
+
+    def __init__(self, name, prompt, loc, win, next_loc, lose, answer, dialogue) -> None:
+        """
+        Initialize a new puzzle.
+        """
+
+        self.name = name
+        self.prompt = prompt
+        self.loc = loc
+        self.win = win
+        self.next_loc = next_loc
+        self.lose = lose
+        self.answer = answer
+        self.dialogue = dialogue
 
 
 # Note: Other entities you may want to add, depending on your game plan:
