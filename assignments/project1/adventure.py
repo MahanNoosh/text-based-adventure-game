@@ -22,6 +22,7 @@ import json
 import random
 from typing import Optional
 
+
 from game_entities import Location, Item, Puzzle
 from proj1_event_logger import Event, EventList
 
@@ -145,14 +146,14 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })
 
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
-    game = AdventureGame('game_data.json', 7)  # load data, setting initial location ID to 7
+    game = AdventureGame('game_data.json', 24)  # load data, setting initial location ID to 7
     menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
     WIN_SCORE = 20
     MAX_MOVES = 25
@@ -233,25 +234,8 @@ if __name__ == "__main__":
                   f"your new friend first number is {computer_numbers}")
             while True:
                 pick = input('if you wanna add another number say "hit" if not say "stand": ')
-                if pick == "hit":
-                    player_numbers.append(random_1_to_10())
-                    print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
-                elif pick == "stand":
-                    computer_numbers.append(random_1_to_10())
-                    while sum(computer_numbers) <= 16:
-                        computer_numbers.append(random_1_to_10())
-                    if sum(computer_numbers) > 21 or sum(player_numbers) >= sum(computer_numbers):
-                        print(
-                            f"you won!\n"
-                            f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} "
-                            f"({sum(player_numbers)})")
-                        break
-                    else:
-                        print(
-                            f"your friend won!\n"
-                            f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} "
-                            f"({sum(player_numbers)})")
-                        break
+                if helper_choice(computer_numbers, player_numbers, pick):
+                    break
                 if sum(player_numbers) > 21 and pick == "hit":
                     print(f"your friend won!\nyou had {player_numbers} ({sum(player_numbers)})")
                     break
@@ -267,6 +251,31 @@ if __name__ == "__main__":
                     break
         print(puzzle.dialogue)
         game.current_location_id = puzzle.next_loc
+
+    def helper_choice(computer_numbers: list[int], player_numbers: list[int], pick: str) -> bool:
+        """
+        helper for play_with_them function choice
+        """
+        if pick == "hit":
+            player_numbers.append(random_1_to_10())
+            print(f"you have {player_numbers} which adds up to {sum(player_numbers)}")
+        elif pick == "stand":
+            computer_numbers.append(random_1_to_10())
+            while sum(computer_numbers) <= 16:
+                computer_numbers.append(random_1_to_10())
+            if sum(computer_numbers) > 21 or sum(player_numbers) >= sum(computer_numbers):
+                print(
+                    f"you won!\n"
+                    f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} "
+                    f"({sum(player_numbers)})")
+                return True
+            else:
+                print(
+                    f"your friend won!\n"
+                    f"they had {computer_numbers} ({sum(computer_numbers)}), and you had {player_numbers} "
+                    f"({sum(player_numbers)})")
+                return True
+        return False
 
     def backdoor() -> None:
         """
