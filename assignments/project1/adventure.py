@@ -42,7 +42,7 @@ class AdventureGame:
 
     _locations: dict[int, Location]
     _items: dict[str, Item]
-    _puzzles: dict[str, Puzzle]
+    _puzzles: dict[int, Puzzle]
     current_location_id: int
     ongoing: bool
 
@@ -72,7 +72,7 @@ class AdventureGame:
         self.ongoing = True  # whether the game is ongoing
 
     @staticmethod
-    def _load_game_data(filename: str) -> tuple[dict[int, Location], dict[str, Item], dict[str, Puzzle]]:
+    def _load_game_data(filename: str) -> tuple[dict[int, Location], dict[str, Item], dict[int, Puzzle]]:
         """Load locations and items from a JSON file with the given filename and
         return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
         and (2) a list of all Item objects."""
@@ -114,7 +114,7 @@ class AdventureGame:
         if item_name in self._items:
             return self._items[item_name]
 
-    def get_puzzle(self, puzzle_id: str) -> Puzzle:
+    def get_puzzle(self, puzzle_id: int) -> Puzzle:
         """
          Return the puzzle with the given name from the list of available puzzles.
         """
