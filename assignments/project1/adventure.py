@@ -33,7 +33,7 @@ class AdventureGame:
     Instance Attributes:
         - current_location_id: the id of location we are currently at.
         - ongoing: saves if the game is running.
-        - inventory: inventory of player in game
+        - inventory: alist of items the player has in game
         - score: score of player in game
     Representation Invariants:
         - len(_locations) > 0
@@ -47,7 +47,7 @@ class AdventureGame:
     _locations: dict[int, Location]
     _items: dict[str, Item]
     _puzzles: dict[int, Puzzle]
-    inventory: list[str]
+    inventory: list[Item]
     score: int
     current_location_id: int
     ongoing: bool
@@ -121,7 +121,7 @@ class AdventureGame:
             return self._puzzles[puzzle_id]
         return None
 
-    def pickup_item(self, new_item: str) -> bool:
+    def pickup_item(self, new_item: Item) -> bool:
         """
         adds item to player inventory if it doesn't already exist
         """
@@ -135,10 +135,10 @@ class AdventureGame:
         """
         updates score of player based on items in inventory
         """
-
+        sc = 0
         for item_in in self.inventory:
-            if game.current_location_id == self._items[item_in].target_position:
-                self.score += self._items[item_in].target_points
+            sc += item_in.target_points
+        self.score = sc
 
 
 if __name__ == "__main__":
@@ -165,7 +165,6 @@ if __name__ == "__main__":
         """
         helper for submit project event
         """
-        game.update_score()
         puzzle = game.get_puzzle(game.current_location_id)
         if game.score == WIN_SCORE:
             print(puzzle.win)
@@ -182,8 +181,7 @@ if __name__ == "__main__":
             number = input(puzzle.prompt).strip().replace("-", "")
             if number in puzzle.answer:
                 print(puzzle.win)
-                game.pickup_item(location.items[0])
-                game.update_score()
+                game.pickup_item(game.get_item(location.items[0]))
             else:
                 print(puzzle.lose)
         else:
@@ -196,7 +194,7 @@ if __name__ == "__main__":
         puzzle = game.get_puzzle(game.current_location_id)
         password = input(puzzle.prompt)
         if password in puzzle.answer:
-            game.pickup_item(location.items[0])
+            game.pickup_item(game.get_item(location.items[0]))
             print(puzzle.win)
         else:
             print(puzzle.lose)
@@ -304,6 +302,7 @@ if __name__ == "__main__":
         return already_claimed_bonus, moves
 
     while game.ongoing:
+        game.update_score()
         if moves_remaining == 0:
             print("You lose :(")
             game.ongoing = False
@@ -353,12 +352,11 @@ if __name__ == "__main__":
                 if len(game.inventory) == 0:
                     print("- You have no item in your inventory")
                 for item in game.inventory:
-                    inventory_item = game.get_item(item)
-                    print(f"- {inventory_item.name}:\t\t{inventory_item.description}")
+                    print(f"- {item.name}:\t\t{item.description}")
             elif choice == "undo":
                 if game_log.last.prev is None:
                     break
-                if game.inventory and game_log.last.prev.next_command[:6] == "pickup":
+                if game.inventory and game_log.last.prev.next_command[:6] in ["pickup", "unlock", "call r"]:
                     game.inventory.pop()
                 game_log.remove_last_event()
                 game.current_location_id = game_log.last.id_num
@@ -369,8 +367,7 @@ if __name__ == "__main__":
             result = location.available_commands[choice]
             game.current_location_id = result
             if choice[:6] == "pickup":
-                if location.items[0] not in game.inventory:
-                    game.pickup_item(location.items[0])
+                game.pickup_item(game.get_item(location.items[0]))
             elif choice == "submit project":
                 submit_project()
             elif choice == "call reciption":

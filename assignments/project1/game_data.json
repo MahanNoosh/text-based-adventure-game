@@ -272,7 +272,7 @@
       "loc" : 7,
       "win": "\nNice, you submitted it two minutes before the deadline!\nYou win!\n",
       "next_loc":7,
-      "lose": "\nYou don’t have the required items to submit your project.\n",
+      "lose": "\nYou don’t have the required items and score to submit your project.\n",
       "answer":[],
       "dialogue": ""
     },
