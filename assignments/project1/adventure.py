@@ -342,7 +342,8 @@ if __name__ == "__main__":
                 unlock_computer()
             elif choice == "enter robarts from backdoor":
                 print(
-                    "The backdoor is locked. You knocked, but no one answered. Try entering through the front door on St. George.")
+                    "The backdoor is locked. You knocked, but no one answered. Try entering through the front "
+                    "door on St. George.")
             elif choice == "face social anxiety and enter":
                 social_anxiety()
             elif choice == "play with them":
