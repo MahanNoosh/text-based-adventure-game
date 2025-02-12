@@ -79,11 +79,11 @@ class AdventureGameSimulation:
         >>> sim.get_id_log()
         [7, 13]
 
-        >>> sim = AdventureGameSimulation('game_data.json', 4, ["unlock the computer", True, "go west"])
+        >>> sim = AdventureGameSimulation('game_data.json', 4, ["unlock the computer", "62759709", "go west"])
         >>> sim.get_id_log()
         [4, 4, 4, 3]
 
-        >>> sim = AdventureGameSimulation('game_data.json', 2, ["use back door", True, "go south"])
+        >>> sim = AdventureGameSimulation('game_data.json', 2, ["use back door", "3843", "go south"])
         >>> sim.get_id_log()
         [2, 2, 1, 7]
         """

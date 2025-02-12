@@ -33,9 +33,13 @@ class AdventureGame:
         - current_location_id: the id of location we are currently at.
         - ongoing: saves if the game is running.
         - inventory: inventory of player in game
+        - score: score of player in game
+        - moves: remaining moves of player in game
     Representation Invariants:
         - len(_locations) > 0
         - len(_items) > 0
+        - moves >= 0
+        - score >= 0
     """
     # Private Instance Attributes:
     #   - _locations: a mapping from location id to Location object. This represents all the locations in the game.
@@ -59,20 +63,9 @@ class AdventureGame:
         Preconditions:
         - game_data_file is the filename of a valid game data JSON file
         """
-
-        # NOTES:
-        # You may add parameters/attributes/methods to this class as you see fit.
-
-        # Requirements:
-        # 1. Make sure the Location class is used to represent each location.
-        # 2. Make sure the Item class is used to represent each item.
-
-        # Suggested helper method (you can remove and load these differently if you wish to do so):
         self._locations, self._items, self._puzzles = self._load_game_data(game_data_file)
-
-        # Suggested attributes (you can remove and track these differently if you wish to do so):
-        self.current_location_id = initial_location_id  # game begins at this location
-        self.ongoing = True  # whether the game is ongoing
+        self.current_location_id = initial_location_id
+        self.ongoing = True
         self.inventory = []
         self.score = 0
         self.moves = 0
@@ -100,7 +93,8 @@ class AdventureGame:
         puzzles = {}
         for puzzle_data in data['puzzles']:  # Go through each element associated with the 'puzzles' key in the file
             puzzle_obj = Puzzle(puzzle_data['name'], puzzle_data['prompt'], puzzle_data['loc'], puzzle_data['win'],
-                                puzzle_data['next_loc'], puzzle_data['lose'], puzzle_data['answer'], puzzle_data['dialogue'])
+                                puzzle_data['next_loc'], puzzle_data['lose'], puzzle_data['answer'],
+                                puzzle_data['dialogue'])
             puzzles[puzzle_data['loc']] = puzzle_obj
         return locations, items, puzzles
 
@@ -172,7 +166,7 @@ if __name__ == "__main__":
     WIN_SCORE = 20
     MAX_MOVES = 25
     game.set_moves(MAX_MOVES)
-    already_claimed_bonus = False
+    claimed_bonus = False
     choice = None
 
     def submit_project() -> None:
@@ -299,18 +293,18 @@ if __name__ == "__main__":
         else:
             print(puzzle.lose)
 
-    def extra_moves() -> None:
+    def extra_moves(already_claimed_bonus) -> bool:
         """
         adds 10 extra moves to player moves after doing some puzzles in game
         """
         puzzle = game.get_puzzle(game.current_location_id)
-        global already_claimed_bonus
         if not already_claimed_bonus:
             game.moves += 10
             already_claimed_bonus = True
             game.current_location_id = puzzle.next_loc
         else:
             print(puzzle.lose)
+        return already_claimed_bonus
 
     while game.ongoing:
         if game.moves == 0:
@@ -378,7 +372,7 @@ if __name__ == "__main__":
             game.current_location_id = result
             if choice[:6] == "pickup":
                 if location.items[0] not in game.inventory:
-                    game.inventory.append(location.items[0])
+                    game.pickup_item(location.items[0])
             elif choice == "submit project":
                 submit_project()
             elif choice == "call reciption":
@@ -394,6 +388,6 @@ if __name__ == "__main__":
             elif choice == "play with them":
                 play_with_them()
             elif choice == "get 10 extra moves":
-                extra_moves()
+                claimed_bonus = extra_moves(claimed_bonus)
             elif choice == "use back door":
                 backdoor()

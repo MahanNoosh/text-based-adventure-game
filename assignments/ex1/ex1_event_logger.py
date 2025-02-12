@@ -42,13 +42,6 @@ class Event:
     - prev: Event object representing the previous event in the game, None if this is the first game event
     """
 
-    # NOTES:
-    # Complete this class EXACTLY as specified, with ALL of the above attributes.
-    # Do NOT add any new attributes, or modify the names or types of the above attributes.
-    # If you want to create a special type of Event for your game that requires a different
-    # set of attributes, you can do that separately in the project1 folder. This class is part of
-    # Exercise 1 and will be auto-graded.
-
     id_num: int
     description: str
     next_command: Optional[str] = None
@@ -65,7 +58,7 @@ class EventList:
         - last: the last Event to happen
 
     Representation Invariants:
-        - isinstance(first, type(last))
+        - type(first) == type(last)
     """
     first: Optional[Event]
     last: Optional[Event]
