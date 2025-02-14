@@ -139,7 +139,8 @@ if __name__ == "__main__":
     sim = AdventureGameSimulation('game_data.json', 7, lose_demo)
     assert expected_log == sim.get_id_log()
 
-    inventory_demo = ["inventory", "pickup cellphone", "inventory", "undo", "inventory"]
+    inventory_demo = ["inventory", "pickup cellphone", "inventory"]
+    # you can undo to drop the item if you don't want it. in that case your log will be [7]
     expected_log = [7, 7]
     sim = AdventureGameSimulation('game_data.json', 7, inventory_demo)
     assert expected_log == sim.get_id_log()

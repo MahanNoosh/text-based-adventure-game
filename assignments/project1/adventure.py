@@ -131,6 +131,13 @@ class AdventureGame:
             return True
         return False
 
+    def inventory_has(self, item_name: str) -> bool:
+        """
+        checks if inventory contains Item with name item_name
+        """
+
+        return self._items[item_name] in self.inventory
+
     def update_score(self) -> None:
         """
         updates score of player based on items in inventory
@@ -160,6 +167,7 @@ if __name__ == "__main__":
     moves_remaining = MAX_MOVES
     claimed_bonus = False
     choice = None
+    picked = True           # if on commands that adds item we were successful
 
     def submit_project() -> None:
         """
@@ -172,22 +180,23 @@ if __name__ == "__main__":
         else:
             print(puzzle.lose)
 
-    def call_recepton() -> None:
+    def call_recepton() -> bool:
         """
         helper for call reception event.
         """
         puzzle = game.get_puzzle(game.current_location_id)
-        if game.get_item("cellphone") in game.inventory:
+        if game.inventory_has("cellphone"):
             number = input(puzzle.prompt).strip().replace("-", "")
             if number in puzzle.answer:
                 print(puzzle.win)
-                game.pickup_item(game.get_item(location.items[0]))
+                return game.pickup_item(game.get_item(location.items[0]))
             else:
                 print(puzzle.lose)
         else:
             print(puzzle.dialogue)
+        return False
 
-    def unlock_computer() -> None:
+    def unlock_computer() -> bool:
         """
         helper for unlock computer event.
         """
@@ -196,8 +205,10 @@ if __name__ == "__main__":
         if password in puzzle.answer:
             game.pickup_item(game.get_item(location.items[0]))
             print(puzzle.win)
+            return True
         else:
             print(puzzle.lose)
+            return False
 
     def social_anxiety() -> None:
         """
@@ -309,11 +320,11 @@ if __name__ == "__main__":
             break
         location = game.get_location()
 
-        if choice not in menu:
+        if choice not in menu and picked:
             e = Event(location.id_num, location.long_description)
             game_log.add_event(e, choice)
 
-        if (game_log.last.prev and game_log.last.prev.id_num != game_log.last.id_num
+        if (game_log.last.prev and game_log.last.prev.id_num != game_log.last.id_num and picked
                 and choice not in ("get 10 extra moves", "play with them") and choice not in menu):
             moves_remaining -= 1
 
@@ -339,7 +350,7 @@ if __name__ == "__main__":
         print("========")
         print("You decided to:", choice)
         print()
-
+        picked = True
         if choice in menu:
             if choice == "log":
                 game_log.display_events()
@@ -357,24 +368,36 @@ if __name__ == "__main__":
             elif choice == "undo":
                 if game_log.last.prev is None:
                     break
+                if game_log.last.prev and game_log.last.id_num != game_log.last.prev.id_num:
+                    moves_remaining += 1
                 if game.inventory and game_log.last.prev.next_command[:6] in ["pickup", "unlock", "call r"]:
                     game.inventory.pop()
                 game_log.remove_last_event()
                 game.current_location_id = game_log.last.id_num
-                if game_log.last.prev and game_log.last.id_num != game_log.last.prev.id_num:
-                    moves_remaining += 1
 
         else:
             result = location.available_commands[choice]
             game.current_location_id = result
             if choice[:6] == "pickup":
-                game.pickup_item(game.get_item(location.items[0]))
+                picked = game.pickup_item(game.get_item(location.items[0]))
+                if not picked:
+                    print("You have already pickedup this!")
             elif choice == "submit project":
                 submit_project()
             elif choice == "call reciption":
-                call_recepton()
+                if not game.inventory_has("lucky mug"):
+                    picked = call_recepton()
+                else:
+                    print("You have already called them!")
+                    picked = False
+
             elif choice == "unlock the computer":
-                unlock_computer()
+                if not game.inventory_has("USB drive"):
+                    picked = unlock_computer()
+                else:
+                    print("Computer had been unlocked before")
+                    picked = False
+
             elif choice == "knock on robarts back door":
                 print(
                     "The backdoor is locked. You knocked, but no one answered. Try entering through the front "
